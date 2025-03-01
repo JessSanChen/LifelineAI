@@ -16,7 +16,7 @@ def ws_endpoint(ws):
     We'll continuously read frames from the camera, encode them,
     and send them to the connected client as base64 strings.
     """
-    cap = cv2.VideoCapture(0)  # Open the default camera
+    cap = cv2.VideoCapture(1)  # Open the default camera
     if not cap.isOpened():
         print("Could not open camera.")
         return
@@ -47,4 +47,4 @@ def ws_endpoint(ws):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)
