@@ -79,22 +79,21 @@ def handle_text_to_speech():
     return jsonify({"message": "Speech played successfully", "text": text})
 
 
-@sock.route('/speech_to_text')
-def speech_to_text(ws):
+@app.route('/speech_to_text', methods=['GET'])
+def speech_to_text():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
-        ws.send("Listening...")
         recognizer.adjust_for_ambient_noise(source)
         try:
             audio = recognizer.listen(source, timeout=5)
             text = recognizer.recognize_google(audio)
-            ws.send(text)
+            return jsonify({"text": text})
         except sr.UnknownValueError:
-            ws.send("Could not understand the audio.")
+            return jsonify({"text": "Could not understand the audio."})
         except sr.RequestError:
-            ws.send("Error: Check your internet connection.")
+            return jsonify({"text": "Error: Check your internet connection."})
         except sr.WaitTimeoutError:
-            ws.send("Listening timed out.")
+            return jsonify({"text": "Listening timed out."})
 
 
 if __name__ == "__main__":
