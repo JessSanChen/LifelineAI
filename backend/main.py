@@ -10,7 +10,7 @@ app = Flask(__name__)
 sock = Sock(app)
 
 
-@sock.route('/ws')
+@sock.route('/video_feed')
 def ws_endpoint(ws):
     """
     This route upgrades HTTP to a WebSocket connection at /ws.

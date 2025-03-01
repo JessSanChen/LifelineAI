@@ -16,7 +16,7 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
 
   useEffect(() => {
     // Open a WebSocket connection to the Python server
-    const ws = new WebSocket("ws://localhost:5001/ws");
+    const ws = new WebSocket("ws://localhost:5001/video_feed");
 
     // Listen for incoming messages (base64-encoded JPEGs)
     ws.onmessage = (event: MessageEvent) => {
@@ -32,16 +32,16 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
 
   return (
     <AppTheme {...props}>
-    <CssBaseline enableColorScheme />
+      <CssBaseline enableColorScheme />
 
-    <AppAppBar />
-    <Hero />
-    <div>
-      <Dashboard />
-      {/* <Divider /> */}
-    </div>
+      <AppAppBar />
+      <Hero />
+      <div>
+        <Dashboard />
+        {/* <Divider /> */}
+      </div>
 
-  </AppTheme>
-    
+    </AppTheme>
+
   );
 }
