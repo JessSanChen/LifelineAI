@@ -2,8 +2,10 @@ import time
 import cv2
 import base64
 import platform
+import pyttsx3
+import speech_recognition as sr
 
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_sock import Sock
 
 app = Flask(__name__)
@@ -59,6 +61,40 @@ def video_feed(ws):
         print(f"Exception during streaming: {e}")
     finally:
         cap.release()
+
+
+def text_to_speech(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
+
+@app.route('/text_to_speech', methods=['GET'])
+def handle_text_to_speech():
+    text = request.args.get('text')
+    if not text:
+        return jsonify({"error": "Text parameter is required"}), 400
+
+    text_to_speech(text)
+    return jsonify({"message": "Speech played successfully", "text": text})
+
+
+@sock.route('/speech_to_text')
+def speech_to_text(ws):
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        ws.send("Listening...")
+        recognizer.adjust_for_ambient_noise(source)
+        try:
+            audio = recognizer.listen(source, timeout=5)
+            text = recognizer.recognize_google(audio)
+            ws.send(text)
+        except sr.UnknownValueError:
+            ws.send("Could not understand the audio.")
+        except sr.RequestError:
+            ws.send("Error: Check your internet connection.")
+        except sr.WaitTimeoutError:
+            ws.send("Listening timed out.")
 
 
 if __name__ == "__main__":
