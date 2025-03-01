@@ -18,7 +18,7 @@ if not ANTHROPIC_API_KEY:
 client = instructor.from_anthropic(anthropic.Anthropic(api_key=ANTHROPIC_API_KEY))
 
 # Read the system prompt from file
-with open("prime_triage_prompt.txt", "r") as file:
+with open("prime_triage_prompt.txt", "r", encoding="utf8") as file:
     SYSTEM_PROMPT = file.read()
 
 # Define Structured Response Model
