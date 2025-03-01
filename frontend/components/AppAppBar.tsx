@@ -55,10 +55,10 @@ export default function AppAppBar() {
             {/* <Sitemark /> */}
             {/* Logo and Brand Name */}
             <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-                <Image src="/logo.svg" alt="LifeAlignAI Logo" width={40} height={40} priority />
-                <Box sx={{ ml: 1, fontSize: '1.2rem', fontWeight: 'bold', color: 'primary.main' }}>
+              <Image src="/logo.svg" alt="LifeAlignAI Logo" width={40} height={40} priority />
+              <Box sx={{ ml: 1, fontSize: '1.2rem', fontWeight: 'bold', color: 'primary.main' }}>
                 LifeAlignAI
-                </Box>
+              </Box>
             </Box>
 
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

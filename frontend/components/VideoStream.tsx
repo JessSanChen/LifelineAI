@@ -1,78 +1,73 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { styled, keyframes } from "@mui/system";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 
-// ---------------------------------------------
-// 1) Define the container and image styles
-// ---------------------------------------------
 const VideoContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  position: "relative",
   backgroundColor: "black",
   borderRadius: theme.shape.borderRadius,
   overflow: "hidden",
-  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
-// A keyframe that starts the image at a heavily scaled-down size
-// (making it appear pixelated via nearest-neighbor scaling), then
-// scales it up to normal, and finally removes `image-rendering`.
-const pixelationAnimation = keyframes`
-  0% {
-    transform: scale(0.2);
-    image-rendering: pixelated;
-  }
-  50% {
-    transform: scale(1);
-    image-rendering: pixelated;
-  }
-  100% {
-    transform: scale(1);
-    image-rendering: auto;
-  }
-`;
-
-const VideoImage = styled("img")(({ theme }) => ({
+// Normal image
+const VideoImage = styled("img")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
   borderRadius: "inherit",
-  transition: "transform 0.3s ease-in-out", // fallback transition for minor scale changes
-  "&.pixelate": {
-    // Once we set the 'pixelate' class, run the pixelation keyframe
-    animation: `${pixelationAnimation} 2s forwards`,
-  },
-}));
+});
 
-// ---------------------------------------------
-// 2) The main component
-// ---------------------------------------------
+// Pixelated + Blur overlay image
+const PixelatedBlurImage = styled("img")({
+  position: "absolute",
+  top: 0,
+  left: 0,
+
+  // Make it smaller, then scale up to fill container
+  // This is what introduces a “blocky” effect when combined with `image-rendering: pixelated`.
+  width: "40%",             // experiment: try 20% or 50%
+  height: "40%",
+  transform: "scale(2.5)",  // if width=40%, scale(2.5) ~ 100%. Adjust as needed.
+  transformOrigin: "top left",
+
+  objectFit: "cover",
+  borderRadius: "inherit",
+  imageRendering: "pixelated",
+
+  // Add a blur for a more jumbled effect
+  filter: "blur(3px)",
+
+  // Start invisible
+  opacity: 0,
+  transition: "opacity 0.3s ease-in-out",
+
+  pointerEvents: "none", // so it doesn’t capture clicks
+});
+
 export default function VideoStream() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
-  // State for controlling pixelation animation
-  const [pixelate, setPixelate] = useState(false);
+  // State for controlling the pixel-blur overlay
+  const [showPixelatedBlur, setShowPixelatedBlur] = useState(false);
 
-  // State for whether the frame rate went up or down
-  //  - 'increase' | 'decrease' | null
-  const [frameRateChange, setFrameRateChange] = useState<null | "increase" | "decrease">(null);
+  // Whether the frame rate changed “up” or “down”
+  const [frameRateChange, setFrameRateChange] = useState<"increase" | "decrease" | null>(null);
+  const oldFrameRateRef = useRef<number | null>(null);
 
-  // Store the old frame rate in a ref so changing it doesn't cause re-renders
-  const oldFrameRateRef = useRef<number | null>(5);
-
-  // ---------------------------------------------
-  // 3) First WebSocket: get image frames
-  // ---------------------------------------------
+  //
+  // 1) WebSocket for the video feed
+  //
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:5001/video_feed");
     ws.onmessage = (event: MessageEvent) => {
-      // event.data is expected to be the Base64-encoded JPEG
       setImageSrc(`data:image/jpeg;base64,${event.data}`);
     };
     return () => {
@@ -80,17 +75,14 @@ export default function VideoStream() {
     };
   }, []);
 
-  // ---------------------------------------------
-  // 4) Second WebSocket: listen for frame rate updates
-  // ---------------------------------------------
+  //
+  // 2) WebSocket for frame rate updates
+  //
   useEffect(() => {
     const ws2 = new WebSocket("ws://localhost:5001/frame_update");
-
     ws2.onmessage = (event: MessageEvent) => {
       const newFrameRate = parseInt(event.data, 10);
 
-      // If this isn't the first frame rate update,
-      // check if the new frame rate is up or down.
       if (oldFrameRateRef.current !== null) {
         if (newFrameRate > oldFrameRateRef.current) {
           setFrameRateChange("increase");
@@ -98,13 +90,8 @@ export default function VideoStream() {
         } else if (newFrameRate < oldFrameRateRef.current) {
           setFrameRateChange("decrease");
           triggerPixelation();
-        } else {
-          // If no change, you could handle it here (optional).
-          // setFrameRateChange(null);
         }
       }
-
-      // Always store the new frame rate for next comparison
       oldFrameRateRef.current = newFrameRate;
     };
 
@@ -113,48 +100,50 @@ export default function VideoStream() {
     };
   }, []);
 
-  // ---------------------------------------------
-  // 5) Helper: briefly trigger pixelation & overlay
-  // ---------------------------------------------
+  //
+  // Show “pixelated blur” overlay for about 2s, then hide it
+  //
   const triggerPixelation = () => {
-    setPixelate(true);
+    setShowPixelatedBlur(true);
 
-    // After 2s (match your animation duration), remove pixelation & overlay
+    // Hide after 2s
     setTimeout(() => {
-      setPixelate(false);
+      setShowPixelatedBlur(false);
       setFrameRateChange(null);
     }, 2000);
   };
 
-  // ---------------------------------------------
-  // 6) Rendering
-  // ---------------------------------------------
   return (
     <VideoContainer>
-      {/* If we have an image, display it; otherwise show a "waiting" message */}
+      {/* Normal video or a loading message */}
       {imageSrc ? (
-        <VideoImage
-          src={imageSrc}
-          alt="Live Stream"
-          className={pixelate ? "pixelate" : ""}
-        />
+        <VideoImage src={imageSrc} alt="Live Stream" />
       ) : (
         <Typography color="white">Waiting for camera stream...</Typography>
       )}
 
-      {/* Frame rate change bubble overlay */}
+      {/* Pixel-blur overlay (same src) */}
+      {imageSrc && (
+        <PixelatedBlurImage
+          src={imageSrc}
+          alt="Pixelated Blur Overlay"
+          style={{ opacity: showPixelatedBlur ? 1 : 0 }}
+        />
+      )}
+
+      {/* Frame rate bubble */}
       {frameRateChange && (
         <Box
           sx={{
             position: "absolute",
             top: "1rem",
             right: "1rem",
-            padding: "0.4rem 0.8rem",
+            py: 0.5,
+            px: 1,
             borderRadius: "9999px",
             color: "white",
             backgroundColor: frameRateChange === "increase" ? "green" : "red",
             boxShadow: "0 0 8px rgba(0,0,0,0.4)",
-            transition: "opacity 0.3s ease-in-out",
             fontWeight: "bold",
           }}
         >
