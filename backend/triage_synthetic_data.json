@@ -1,0 +1,1202 @@
+[
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello, this is your emergency assistant. I noticed you may have fallen. Are you able to respond?\nPerson: Yes... I'm here. I fell.\nAI: I'm glad you can respond. Are you able to move at all?\nPerson: I can't get up. My hip... it really hurts badly.\nAI: I understand. That sounds serious. Can you tell me if you hit your head when you fell?\nPerson: No, I don't think so. Just my hip.\nAI: Thank you for letting me know. Based on your hip pain and inability to get up, I think we should call emergency services. Is that okay with you?\nPerson: Yes, please call. I need help.\nAI: I'm calling emergency services now. Stay as comfortable as possible. Help is on the way. I'll stay with you until they arrive.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision in 4 turns.",
+            "Information Gain": "+2: Each question provided critical details about mobility and injury location.",
+            "Correctness": "+3: AI correctly escalated the case.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello there, I noticed you might have fallen. Are you okay?\nPerson: I slipped... trying to get up but my knee is giving me trouble.\nAI: I understand. Are you experiencing any severe pain right now?\nPerson: It hurts, but I don't think anything's broken. Just can't seem to stand properly.\nAI: Do you have anyone nearby who could help you up safely?\nPerson: No, I'm alone right now.\nAI: I see. Are you feeling any dizziness, nausea, or did you hit your head?\nPerson: No dizziness, just this knee pain. I've had bad knees for years.\nAI: Based on what you're telling me, I think we should call for assistance to help you up safely. Would you like me to call emergency services?\nPerson: No, that's too much. Could you call my daughter instead? Her number is in my contacts.\nAI: Of course. I'll call your daughter right away to come help you.",
+        "Final Triage Decision": "AI: Calling family member instead of emergency services.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI correctly assessed the situation was serious but not an emergency.",
+            "Information Gain": "+2: Questions effectively determined pain level, presence of others, and preferred assistance.",
+            "Correctness": "+3: AI correctly offered help without unnecessarily escalating.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious.",
+        "Conversation Log": "AI: Hello, this is your emergency assistant. Can you hear me?\nPerson: [No response]\nAI: If you can hear me, please make any sound or movement to let me know you're conscious.\nPerson: [No response after 5 seconds]\nAI: I'm detecting a possible emergency situation. I'm calling emergency services now. Help will be on the way shortly.",
+        "Final Triage Decision": "AI: Calling emergency services immediately.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized unresponsiveness and escalated immediately.",
+            "Information Gain": "+1: AI attempted to confirm consciousness appropriately.",
+            "Correctness": "+3: AI correctly escalated an unconscious patient case.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello, I noticed you might have fallen. Are you alright?\nPerson: Oh goodness, yes I did fall. Just a little slip.\nAI: I'm glad you can respond. Are you feeling any pain right now?\nPerson: Just a bit sore on my elbow where I landed, but nothing serious.\nAI: That's good to hear. Are you able to move around normally?\nPerson: Yes, I can get up. Just give me a second... There, I'm up now.\nAI: Excellent. Do you feel any dizziness or disorientation?\nPerson: No, I'm fine. Just embarrassed I slipped on that rug again!\nAI: No need to be embarrassed! These things happen. Is there anything else I can help you with?\nPerson: No, I'm truly fine. Thank you for checking on me.\nAI: You're welcome. Maybe consider securing that rug so it doesn't slip in the future. I'm here if you need anything else.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI appropriately took time to confirm status.",
+            "Information Gain": "+2: Questions effectively assessed pain, mobility, and neurological status.",
+            "Correctness": "+3: AI correctly identified a non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello, I noticed you may have fallen. Are you okay?\nPerson: What? I... where am I?\nAI: You're at home. It looks like you might have fallen. Can you tell me your name?\nPerson: I'm... Martha. Why can't I remember what happened?\nAI: That's okay, Martha. Sometimes falls can cause momentary confusion. Did you hit your head?\nPerson: I think so... My head hurts.\nAI: I understand. Are you feeling dizzy or nauseated?\nPerson: Yes, the room is spinning a bit.\nAI: Martha, based on your confusion and dizziness after hitting your head, I'm going to call emergency services. This could be serious, but try not to worry. Help will be here soon.\nPerson: Okay... thank you.\nAI: I'm calling them now. Stay where you are and try not to move too much.",
+        "Final Triage Decision": "AI: Calling emergency services due to head injury with disorientation.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI efficiently assessed the situation.",
+            "Information Gain": "+2: Questions effectively identified head injury and neurological symptoms.",
+            "Correctness": "+3: AI correctly escalated a potential head injury.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello, I noticed a sudden movement. Are you alright?\nPerson: What? Oh! Yes, I'm fine. I just sat down quickly because my show was starting.\nAI: I see! So you didn't actually fall?\nPerson: No, no fall. Just plopped down on the sofa a bit too enthusiastically for my favorite program!\nAI: That's a relief! Sorry for the interruption. Enjoy your show!\nPerson: Thank you for checking, though. Better safe than sorry!\nAI: Absolutely! That's what I'm here for. Let me know if you need anything else.",
+        "Final Triage Decision": "AI: False alarm confirmed, no emergency.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified the false alarm.",
+            "Information Gain": "+1: Clarified the situation immediately.",
+            "Correctness": "+3: AI correctly identified a non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom, reporting chest pain.",
+        "Conversation Log": "AI: Hello, I detected a fall. Are you able to respond?\nPerson: Yes... I fell in the bathroom.\nAI: I'm sorry to hear that. Are you injured?\nPerson: My chest... it's hurting. Started before I fell.\nAI: I understand. This is important - is the pain sharp, squeezing, or pressure-like?\nPerson: It feels tight... like pressure. Going into my left arm too.\nAI: Thank you for telling me. Those symptoms could indicate a heart issue. I'm going to call emergency services right away. Try to stay calm and don't attempt to get up.\nPerson: Okay... I'm scared.\nAI: I understand you're scared, but you've done the right thing by telling me your symptoms. Help will be there soon. I'm calling emergency services now and will stay with you until they arrive.\nPerson: Thank you.\nAI: Emergency services have been called. They're on their way. Stay as still as comfortable and take slow, deep breaths if you can.",
+        "Final Triage Decision": "AI: Calling emergency services immediately for potential cardiac event.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized cardiac symptoms and escalated.",
+            "Information Gain": "+2: Questions effectively identified nature of chest pain and radiation.",
+            "Correctness": "+3: AI correctly prioritized cardiac symptoms over the fall itself.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell while getting out of bed, minor bruising.",
+        "Conversation Log": "AI: Hello, I noticed a fall. Are you okay?\nPerson: Yes, just slipped getting out of bed. These new slippers are too smooth.\nAI: I'm glad you're responding. Are you experiencing any pain?\nPerson: Just a small bruise on my hip, nothing serious.\nAI: Are you able to stand up and move around?\nPerson: Yes, I'm up now. Walking fine.\nAI: That's good to hear. Do you feel dizzy or lightheaded at all?\nPerson: No, I feel normal. Just a bit embarrassed!\nAI: No need to be embarrassed! These things happen to everyone. Since you're moving well and the pain is minor, this doesn't seem to be an emergency. Would you like me to make a note to tell your doctor about this fall at your next appointment?\nPerson: Yes, that would be helpful. And maybe I should get different slippers!\nAI: I'll make that note. And yes, maybe some non-slip slippers would be a good idea! Is there anything else you need help with right now?",
+        "Final Triage Decision": "AI: No emergency detected, making note for doctor.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI appropriately assessed the situation.",
+            "Information Gain": "+2: Questions effectively assessed mobility and injury severity.",
+            "Correctness": "+3: AI correctly identified a non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell and cannot move leg, severe pain.",
+        "Conversation Log": "AI: Hello, I noticed you may have fallen. Are you able to respond?\nPerson: Yes... I fell going down the stairs. My leg really hurts.\nAI: I'm sorry to hear that. Can you describe where the pain is and how severe it is?\nPerson: It's my right leg, below the knee. The pain is terrible, maybe an 8 out of 10.\nAI: That sounds very painful. Are you able to move your right leg at all?\nPerson: No, I can't move it. And it looks... wrong. Like it's bent where it shouldn't be.\nAI: Thank you for that information. Based on what you're describing, it sounds like you may have a fracture. I'm going to call emergency services. Is that okay?\nPerson: Yes, please call. I can't get up.\nAI: I'm calling emergency services now. Try not to move your leg. Help is on the way, and I'll stay connected with you until they arrive.\nPerson: Thank you.\nAI: They're on their way. Is there anyone else in the house who could unlock the door for the paramedics?\nPerson: No, I'm alone, but the spare key is under the mat.\nAI: That's helpful information. I'll make sure to tell the emergency responders about the key under the mat.",
+        "Final Triage Decision": "AI: Calling emergency services for suspected fracture.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI efficiently assessed the situation.",
+            "Information Gain": "+2: Questions effectively identified location, severity, and possible fracture.",
+            "Correctness": "+3: AI correctly escalated a serious injury.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell while gardening, scraped knee but otherwise fine.",
+        "Conversation Log": "AI: Hello, I noticed you may have fallen. Are you alright?\nPerson: Oh yes, just took a little tumble in the garden. These old knees aren't what they used to be!\nAI: I understand. Did you hurt yourself when you fell?\nPerson: Just scraped my knee a bit. Nothing serious.\nAI: Good to hear it's minor. Are you able to stand up and walk normally?\nPerson: Yes, I'm already back on my feet. Just came inside to clean up the scrape.\nAI: That's great. Do you have what you need to clean and bandage the scrape?\nPerson: Yes, I've got my first aid kit right here.\nAI: Perfect. Since you're moving well and the injury is minor, this doesn't appear to be an emergency. Would you like me to set a reminder to check how your knee is feeling later today?\nPerson: That would be nice, thank you. Maybe check in before dinner?\nAI: I'll set a reminder to check on your knee at 5:00 PM. In the meantime, if you notice any unusual swelling or increased pain, just let me know.\nPerson: Will do. Back to the roses now!\nAI: Enjoy your gardening! I'll check in later.",
+        "Final Triage Decision": "AI: No emergency detected, setting follow-up reminder.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI appropriately assessed the situation.",
+            "Information Gain": "+2: Questions effectively assessed mobility and injury severity.",
+            "Correctness": "+3: AI correctly identified a non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 20 seconds.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you able to respond?\nPerson: I... I can't move my leg. It hurts so badly.\nAI: I'm here to help. Can you tell me where exactly it hurts?\nPerson: My hip. I think something's broken. I can't get up.\nAI: That sounds serious. Are you experiencing any other symptoms? Dizziness, nausea, or shortness of breath?\nPerson: I feel a bit dizzy. And my chest feels tight.\nAI: I'm going to call emergency services right away. Try to stay calm and don't attempt to move. Help will be there soon.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision in 4 turns.",
+            "Information Gain": "+2: Each question provided critical information about injury and symptoms.",
+            "Correctness": "+3: AI correctly escalated a potentially serious hip fracture with cardiovascular symptoms.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello there, I noticed a sudden movement. Are you okay?\nPerson: Oh! Yes, I just sat down quickly because I was feeling a bit tired.\nAI: I understand. Just checking in. Are you experiencing any pain or discomfort?\nPerson: No, no pain at all. I'm perfectly fine, just resting.\nAI: That's good to hear! It sounds like this was just a false alarm. No need for any concern then.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined this was a false alarm.",
+            "Information Gain": "+1: Verified absence of pain or discomfort.",
+            "Correctness": "+3: Correctly avoided unnecessary escalation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious after falling down stairs.",
+        "Conversation Log": "AI: Hello? Can you hear me? I detected a fall.\nPerson: [No response for 5 seconds]\nAI: If you can hear me, please respond. I'm concerned about your safety.\nPerson: [Faint groaning]\nAI: I hear that you're in distress. I'm calling emergency services immediately. Help is on the way. Please remain still if possible.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI immediately recognized the severity with minimal delay.",
+            "Information Gain": "+1: Correctly interpreted lack of response as a serious indicator.",
+            "Correctness": "+3: Appropriately escalated an unconscious fall victim.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you alright?\nPerson: I... I think so. Just having trouble getting back up.\nAI: Take your time. Are you experiencing any pain?\nPerson: My wrist hurts where I tried to catch myself. And my knee.\nAI: I understand. Can you move your fingers and toes normally?\nPerson: Yes, I can move everything. I just feel shaky and weak.\nAI: Are you feeling dizzy, nauseous, or did you hit your head?\nPerson: No head injury, but I do feel a bit lightheaded. I haven't eaten today.\nAI: That could explain the weakness. Given your pain and difficulty getting up, I think we should have someone check on you. Would you like me to call emergency services or perhaps a family member?\nPerson: Could you call my daughter? I don't think I need an ambulance.\nAI: Of course, I'll contact your daughter right away.",
+        "Final Triage Decision": "AI: Contacting family member as requested.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: Carefully assessed the situation before deciding.",
+            "Information Gain": "+2: Systematically gathered information about injuries and symptoms.",
+            "Correctness": "+3: Correctly identified a non-emergency situation requiring assistance.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person is disoriented after falling in the bathroom.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you okay?\nPerson: Who... who's there? Where am I?\nAI: This is your home assistant. You appear to have fallen in the bathroom. Can you tell me your name?\nPerson: I'm... Margaret. My head hurts.\nAI: Margaret, did you hit your head when you fell?\nPerson: I think so. The floor is wet. Everything's spinning.\nAI: That sounds concerning. I'm going to call emergency services right away. Try to stay still and don't get up. Help will be there soon.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Quickly identified disorientation as a serious symptom.",
+            "Information Gain": "+2: Efficiently established confusion, head injury, and dizziness.",
+            "Correctness": "+3: Correctly escalated a potential head injury with disorientation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally, laughing it off.",
+        "Conversation Log": "AI: Hello, I noticed you might have fallen. Are you alright?\nPerson: Oh goodness, yes! I just tripped over my own feet. How embarrassing!\nAI: No need to be embarrassed at all. It happens to everyone! Just want to make sure you're not hurt?\nPerson: Not a scratch. Just my pride! [laughing]\nAI: That's a relief! Sometimes a good laugh is the best medicine. Let me know if you need anything else.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Immediately recognized the non-emergency nature.",
+            "Information Gain": "+1: Confirmed absence of injuries.",
+            "Correctness": "+3: Correctly avoided unnecessary escalation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell and is experiencing chest pain.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you okay?\nPerson: I don't feel well. My chest... it's tight.\nAI: I'm concerned about that chest pain. Did it start before or after you fell?\nPerson: Before... I got dizzy and then fell.\nAI: That's important information. Are you also experiencing shortness of breath, nausea, or pain in your left arm?\nPerson: Yes... hard to breathe. Arm hurts too.\nAI: This sounds like it could be a cardiac event. I'm calling emergency services immediately. Try to remain as still and calm as possible. Help is on the way.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Quickly identified potential cardiac symptoms.",
+            "Information Gain": "+2: Asked targeted questions to confirm heart attack symptoms.",
+            "Correctness": "+3: Correctly prioritized cardiac symptoms over the fall itself.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person slipped while getting out of bed but caught themselves.",
+        "Conversation Log": "AI: Hello, I noticed a sudden movement. Are you alright?\nPerson: Yes, I'm fine. Just slipped a bit getting out of bed.\nAI: Glad to hear you caught yourself. Any pain or discomfort?\nPerson: No, no pain. My socks were slippery on the hardwood.\nAI: Those can be tricky! Would you like me to remind you to wear non-slip footwear in the morning?\nPerson: That might be helpful, yes.\nAI: I'll set that up for you. In the meantime, everything seems okay - no need for any emergency assistance.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Quickly assessed the non-emergency situation.",
+            "Information Gain": "+1: Verified absence of injuries.",
+            "Correctness": "+3: Correctly identified a minor slip with no injuries.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell from standing height and is complaining of severe back pain.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you able to respond?\nPerson: Yes... I fell. My back... it really hurts.\nAI: I'm sorry to hear that. Can you describe where in your back the pain is located?\nPerson: Lower back. It's sharp, like a knife.\nAI: That sounds quite painful. Are you able to move your legs and feet normally?\nPerson: I think so, but I'm afraid to move much. The pain is really bad.\nAI: I understand. Have you had any prior back problems or injuries?\nPerson: I have osteoporosis. Doctor said I'm at risk for fractures.\nAI: Given your osteoporosis and the severe pain you're experiencing, I think we should have medical professionals evaluate you. I'm going to call emergency services to help.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: Methodically assessed the situation.",
+            "Information Gain": "+2: Gathered critical information about pain location, mobility, and medical history.",
+            "Correctness": "+3: Correctly escalated a potential spinal injury in a high-risk patient.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person detected on floor but was actually doing floor exercises.",
+        "Conversation Log": "AI: Hello? I noticed you're on the floor. Are you okay?\nPerson: Oh! Yes, I'm just doing my physical therapy exercises.\nAI: I see! Sorry for the interruption. Those floor exercises are important.\nPerson: No problem at all. Better safe than sorry!\nAI: Absolutely. I'm glad you're keeping up with your exercise routine. Carry on, and let me know if you actually do need anything.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Immediately recognized the non-emergency situation.",
+            "Information Gain": "+1: Quickly established the activity was intentional.",
+            "Correctness": "+3: Correctly avoided unnecessary escalation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you able to respond?\nPerson: Yes... I'm here. Oh dear.\nAI: I'm glad you're responding. Are you able to move?\nPerson: I think I hit my head. Everything's spinning.\nAI: That could be serious. Are you experiencing any pain or bleeding?\nPerson: My head hurts... and I feel sick.\nAI: Those symptoms suggest a possible concussion. I'm going to call emergency services for you right away. Try to stay still.\nPerson: Okay... I feel very dizzy.\nAI: Help is on the way. I'll stay connected with you until they arrive.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision in 3 turns.",
+            "Information Gain": "+2: Each question revealed critical symptoms.",
+            "Correctness": "+3: AI correctly escalated with head injury and dizziness.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello, I noticed you might have fallen. Do you need assistance?\nPerson: Yes, I slipped. My hip doesn't feel right.\nAI: I understand. Can you tell me how much pain you're in on a scale of 1-10?\nPerson: It's about an 8. I can't put weight on it.\nAI: That's significant pain. Have you injured this hip before or had any hip replacements?\nPerson: Yes, I had a hip replacement on this side last year.\nAI: Given your history and level of pain, I think we should have medical professionals check this out. I'm calling emergency services for you.\nPerson: Thank you, I think that's best.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI made a decision after gathering key information.",
+            "Information Gain": "+2: Questions about pain level and medical history were highly relevant.",
+            "Correctness": "+3: AI correctly escalated with potential prosthetic complication.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious.",
+        "Conversation Log": "AI: Hello? Can you hear me? Please respond if you can.\nPerson: [No response]\nAI: I'm detecting a potential emergency. If you can hear me but can't respond, don't worry, I'm calling for help now.\nPerson: [No response]\nAI: Emergency services have been contacted. Help is on the way. I'll stay connected.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI immediately recognized the severity.",
+            "Information Gain": "+1: AI correctly interpreted lack of response as an emergency.",
+            "Correctness": "+3: AI correctly escalated an unconscious person scenario.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello there, I noticed you might have taken a fall. Are you okay?\nPerson: Yes, I just lost my balance getting out of the chair. I'm fine.\nAI: I'm glad to hear that. Are you experiencing any pain or discomfort?\nPerson: No, not really. Just a bit embarrassed!\nAI: No need to be embarrassed at all. These things happen! Just to be sure, are you able to move normally?\nPerson: Yes, I can move fine. I'm already back in my chair.\nAI: That's great news. Would you like me to check in with you again in a little while?\nPerson: No need, but thank you for your concern.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI confirmed status in appropriate time.",
+            "Information Gain": "+2: Questions about pain and mobility were relevant.",
+            "Correctness": "+3: AI correctly identified non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Are you able to respond?\nPerson: What? Who's there?\nAI: This is your home assistant. I noticed you fell. Are you hurt?\nPerson: I don't... I'm not sure where I am.\nAI: It sounds like you might be disoriented. Can you tell me what day it is today?\nPerson: Tuesday? No... I don't know.\nAI: I'm concerned about your confusion. Have you hit your head?\nPerson: Maybe... everything's fuzzy.\nAI: Given your disorientation, I think it's best to have you checked out. I'm calling emergency services now.\nPerson: Okay... thank you.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI appropriately assessed mental status before deciding.",
+            "Information Gain": "+2: Questions revealed critical disorientation.",
+            "Correctness": "+3: AI correctly escalated with confusion symptoms.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello, I noticed a sudden movement. Are you alright?\nPerson: Oh! Yes, I just sat down quickly because the phone was ringing.\nAI: I see! Sorry for the confusion. So you're not experiencing any pain or discomfort?\nPerson: Not at all. I'm perfectly fine, just moved too fast I guess!\nAI: That happens! The system sometimes interprets quick movements as potential falls. Glad to hear you're okay.\nPerson: Thanks for checking though, it's nice to know someone's looking out for me.\nAI: Always! That's what I'm here for. Enjoy the rest of your day!",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified false alarm.",
+            "Information Gain": "+1: Confirmed status efficiently.",
+            "Correctness": "+3: AI correctly identified non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom, responding but in pain.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you able to respond?\nPerson: Yes... I slipped in the bathroom. The floor was wet.\nAI: I understand. Are you able to get up safely?\nPerson: No, my back really hurts when I try to move.\nAI: I'm sorry to hear that. Back pain after a fall can be serious. Is the pain sharp or dull?\nPerson: Sharp, especially when I try to move.\nAI: That's concerning. Given the location of the fall and your back pain, I think we should have you checked out. I'm going to call emergency services for you.\nPerson: Okay, thank you. I think that's best.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI gathered necessary information before deciding.",
+            "Information Gain": "+2: Questions about pain type and mobility were crucial.",
+            "Correctness": "+3: AI correctly escalated with back injury concern.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person tripped over rug but caught themselves.",
+        "Conversation Log": "AI: Hello, I noticed a potential fall. Are you okay?\nPerson: Oh, I just tripped over the edge of the rug, but I caught myself on the table.\nAI: Good catch! Are you feeling any pain or did you strain anything?\nPerson: My wrist is a little sore from catching myself, but nothing serious.\nAI: I understand. Is the pain mild enough that you can move your wrist normally?\nPerson: Yes, I can rotate it fine. It was just the impact.\nAI: That's good to hear. Perhaps some ice might help with any swelling. Would you like me to check in with you again shortly?\nPerson: No need, but thanks for the suggestion about ice. I'll do that.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI appropriately assessed injury before deciding.",
+            "Information Gain": "+2: Questions about mobility and pain level were relevant.",
+            "Correctness": "+3: AI correctly identified non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell from standing height and is experiencing chest pain.",
+        "Conversation Log": "AI: Hello? I noticed you may have fallen. Are you able to respond?\nPerson: Yes... I fell. I'm having trouble breathing.\nAI: I'm sorry to hear that. Breathing difficulties are serious. Are you also experiencing any chest pain?\nPerson: Yes, my chest hurts. It feels tight.\nAI: Chest pain and difficulty breathing are emergency symptoms. I'm calling emergency services for you right away. Try to remain as still and calm as possible.\nPerson: Please hurry.\nAI: Emergency services have been contacted. They're on their way. I'll stay connected with you.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized emergency symptoms.",
+            "Information Gain": "+2: Identified critical chest pain immediately.",
+            "Correctness": "+3: AI correctly escalated with cardiac/respiratory symptoms.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person slipped from chair to floor while reaching for something.",
+        "Conversation Log": "AI: Hello, I noticed you might have fallen. Are you alright?\nPerson: I was trying to reach my book and slid off the chair. How silly of me!\nAI: These things happen! Are you experiencing any pain?\nPerson: Just my pride is hurt! I'm fine physically.\nAI: That's good to hear! Are you able to get back up safely?\nPerson: Yes, I'm already up. No problems.\nAI: Wonderful! Maybe keep that book a bit closer next time?\nPerson: Haha, definitely! Thanks for checking on me.\nAI: Of course! That's what I'm here for. Let me know if you need anything else.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly assessed situation.",
+            "Information Gain": "+1: Confirmed mobility and pain status efficiently.",
+            "Correctness": "+3: AI correctly identified non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello there, I noticed a fall. Are you able to respond?\nPerson: Yes... I'm here. Oh dear.\nAI: I'm glad you can respond. Are you feeling any pain right now?\nPerson: My hip... it's excruciating. I can't move my left leg at all.\nAI: I understand that must be very painful. Can you tell me if you hit your head during the fall?\nPerson: No, I don't think so. Just my hip when I slipped.\nAI: I'm concerned about your hip pain and inability to move. I think we should get medical help. I'm going to call emergency services for you now, is that okay?\nPerson: Yes, please. I don't think I can get up.\nAI: I'm calling them right now. Stay calm and try not to move. Help will be there soon.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision after thorough assessment.",
+            "Information Gain": "+2: Questions revealed critical information about mobility and pain.",
+            "Correctness": "+3: AI correctly escalated for potential hip fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you alright?\nPerson: I... I think so. Just trying to get back up.\nAI: Take your time. Are you experiencing any pain or dizziness?\nPerson: My wrist hurts quite a bit. I think I landed on it.\nAI: I'm sorry to hear that. Can you move your fingers on that hand?\nPerson: Yes, but it really hurts when I try to put weight on it.\nAI: That's concerning. Any other injuries or pain anywhere else?\nPerson: No, just the wrist. I think I might have sprained it.\nAI: Based on what you're describing, you should have that wrist examined. Would you like me to call emergency services, or do you have someone who can take you to urgent care?\nPerson: My daughter is coming over in about 30 minutes. I can wait for her.\nAI: That sounds good. Please keep your wrist still until then. If the pain worsens or you develop any new symptoms, let me know and we can reassess.",
+        "Final Triage Decision": "AI: No immediate emergency services needed, family assistance arranged.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI gathered sufficient information before making decision.",
+            "Information Gain": "+2: Each question built on previous answers effectively.",
+            "Correctness": "+3: AI correctly identified a non-emergency that still needed attention.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious after fall.",
+        "Conversation Log": "AI: Hello? Can you hear me? Are you okay?\nPerson: [No response]\nAI: I'm detecting that you may have fallen. If you can hear me, please respond.\nPerson: [No response after 5 seconds]\nAI: I'm calling emergency services right now. Help is on the way.",
+        "Final Triage Decision": "AI: Calling emergency services immediately due to unresponsiveness.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly escalated when no response was received.",
+            "Information Gain": "+1: AI attempted to gather information appropriately.",
+            "Correctness": "+3: AI correctly initiated emergency response for unconsciousness.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello there, I noticed you took a fall. Are you okay?\nPerson: Oh goodness, yes. Just a little slip on the rug.\nAI: I'm glad to hear your voice sounds clear. Are you feeling any pain?\nPerson: No, no pain. Just a bit embarrassed, really!\nAI: No need for embarrassment! These things happen. Can you move around normally?\nPerson: Yes, I'm already standing up. Everything's working fine.\nAI: That's excellent. Any dizziness or feeling lightheaded before or after the fall?\nPerson: None at all. I just wasn't paying attention to where I was stepping.\nAI: Wonderful! It sounds like you're doing well. Maybe just take it a bit slower today, and let me know if anything changes.",
+        "Final Triage Decision": "AI: No emergency detected, person is safe and mobile.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI confirmed status methodically.",
+            "Information Gain": "+2: Questions assessed mobility, pain, and consciousness appropriately.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you alright?\nPerson: What? Who's there? Where am I?\nAI: I'm your home assistant. You're in your living room. It looks like you might have fallen. Are you feeling confused?\nPerson: I... yes. What time is it? I don't remember getting up.\nAI: It's 10:30 in the morning. Are you feeling any pain right now?\nPerson: My head hurts. I think I hit it on something.\nAI: That's concerning. Are you able to tell me what day it is today?\nPerson: It's... Tuesday? No, wait. I'm not sure.\nAI: I'm going to call emergency services right away. Confusion and head pain after a fall need immediate attention. Stay where you are, help is coming soon.",
+        "Final Triage Decision": "AI: Calling emergency services due to confusion and head injury.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified cognitive impairment.",
+            "Information Gain": "+2: Questions effectively assessed orientation and injury.",
+            "Correctness": "+3: AI correctly escalated for potential head injury with confusion.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello there, I detected a possible fall. Are you okay?\nPerson: Fall? No, I just sat down quickly because my show was starting!\nAI: Oh, I see! Sorry for the confusion. So you're feeling completely fine?\nPerson: Absolutely! Just eager to catch my program. False alarm!\nAI: That's a relief! Enjoy your show then. Sorry for the interruption.",
+        "Final Triage Decision": "AI: No emergency, false detection confirmed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined it was a false alarm.",
+            "Information Gain": "+1: Confirmed status efficiently.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom, responding but in pain.",
+        "Conversation Log": "AI: Hello, I detected a fall. Are you able to respond?\nPerson: Yes... I slipped in the bathroom. The floor was wet.\nAI: I understand. Are you experiencing any pain right now?\nPerson: My back... and I think my arm might be broken. It's bent funny.\nAI: That sounds serious. Can you move at all?\nPerson: I can wiggle a bit, but I'm afraid to move much. Everything hurts.\nAI: I'm going to call emergency services right away. A possible broken arm needs medical attention. Try to stay still, help will be there soon.\nPerson: Thank you. I'm a bit scared.\nAI: That's completely understandable. I'll stay connected with you until help arrives. You're not alone in this.",
+        "Final Triage Decision": "AI: Calling emergency services for possible fracture and back injury.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI assessed the situation thoroughly.",
+            "Information Gain": "+2: Questions effectively determined injury severity.",
+            "Correctness": "+3: AI correctly escalated for potential fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell while exercising, breathing heavily.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you okay?\nPerson: Yes... just... out of breath. Was doing my exercises.\nAI: I see. Is your breathing difficulty from exertion, or did the fall affect your breathing?\nPerson: Just... from the workout. Give me a minute.\nAI: Take your time. Are you experiencing any pain from the fall?\nPerson: No, just embarrassed. I lost my balance during a yoga pose.\nAI: No need to be embarrassed! That happens to everyone. Are you able to move normally?\nPerson: Yes, all good now. Breathing's back to normal too.\nAI: Excellent! Maybe take a short break before continuing your exercises. Let me know if anything changes.",
+        "Final Triage Decision": "AI: No emergency, person recovering normally from exercise-related fall.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI appropriately waited to confirm breathing normalized.",
+            "Information Gain": "+2: Questions distinguished between exercise-related symptoms and injuries.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell and is experiencing chest pain.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you alright?\nPerson: Not really... I'm having chest pain.\nAI: I'm sorry to hear that. Did the chest pain start before or after you fell?\nPerson: Before... I think that's why I fell. It's tight, like pressure.\nAI: This sounds serious. Are you also experiencing any shortness of breath, nausea, or pain in your arm or jaw?\nPerson: Yes, can't catch my breath. Left arm feels numb.\nAI: I'm calling emergency services immediately. These symptoms could indicate a heart problem. Try to remain as calm as possible. Help is on the way.\nPerson: Please hurry.\nAI: They're being contacted right now. If you have aspirin available and aren't allergic to it, emergency protocols often recommend taking one while waiting for help.",
+        "Final Triage Decision": "AI: Calling emergency services immediately for possible cardiac event.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified potential cardiac symptoms.",
+            "Information Gain": "+2: Questions effectively assessed classic heart attack symptoms.",
+            "Correctness": "+3: AI correctly escalated high-priority medical emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person tripped over pet but caught themselves before falling completely.",
+        "Conversation Log": "AI: Hello there, I detected a possible fall. Are you okay?\nPerson: Oh! Yes, I just tripped over my cat. She's always underfoot!\nAI: Cats do have that talent! Did you manage to catch yourself, or did you hit the ground?\nPerson: I caught myself on the counter. Startled us both, but no harm done.\nAI: That's good reflexes! Are you feeling any strain or pain from the sudden movement?\nPerson: My wrist is a tiny bit sore from catching myself, but nothing serious.\nAI: Keep an eye on that wrist. Maybe some gentle stretching would help. Any dizziness or other concerns?\nPerson: None at all. The cat got the worst of it - her dignity is wounded!\nAI: Haha! Cats are experts at pretending nothing happened. Glad you're both okay. Let me know if that wrist bothers you later.",
+        "Final Triage Decision": "AI: No emergency, minor strain being monitored.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI confirmed status appropriately.",
+            "Information Gain": "+2: Questions assessed both the fall mechanics and potential injuries.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you able to respond?\nPerson: Yes... I'm here... I fell...\nAI: I'm glad you can speak with me. Are you able to move at all?\nPerson: I tried but I can't get up. My hip really hurts.\nAI: I understand. Can you tell me if you hit your head during the fall?\nPerson: No, I don't think so. Just my hip.\nAI: Okay. Is the pain severe or can you move your leg at all?\nPerson: It's really bad. I can't move it without terrible pain.\nAI: I'm going to call emergency services for you right away. This sounds like you may have injured your hip significantly.\nPerson: Yes, please call. I need help.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision after thorough assessment.",
+            "Information Gain": "+2: Questions systematically assessed mobility and pain.",
+            "Correctness": "+3: AI correctly escalated for potential hip fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello there, I noticed you fell. Are you okay?\nPerson: I... I slipped. Having trouble getting back up.\nAI: I'm here to help. Are you experiencing any pain?\nPerson: My wrist hurts where I caught myself. And I feel a bit dizzy.\nAI: I understand. The dizziness concerns me. Did you hit your head at all?\nPerson: I don't think so... no, I didn't hit my head.\nAI: That's good. Have you been feeling dizzy before the fall as well?\nPerson: Yes, actually. My blood pressure medication was just changed yesterday.\nAI: I see. I think we should have medical professionals check you out, especially with the new medication and continued dizziness. I'm going to call for help.\nPerson: Okay, thank you.",
+        "Final Triage Decision": "AI: Calling emergency services for medical evaluation.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI appropriately investigated before deciding.",
+            "Information Gain": "+2: Uncovered key information about medication changes.",
+            "Correctness": "+3: Correctly escalated for medical evaluation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious after falling down stairs.",
+        "Conversation Log": "AI: Hello? Can you hear me? I've detected a fall.\nPerson: [No response]\nAI: If you can hear me, please respond. I'm concerned for your safety.\nPerson: [Faint groaning]\nAI: I hear you're making sounds but not speaking. I'm calling emergency services immediately. Help is on the way. Please remain still if possible.",
+        "Final Triage Decision": "AI: Emergency services called immediately due to unresponsiveness.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI made immediate decision with minimal information.",
+            "Information Gain": "+1: Confirmed unresponsiveness quickly.",
+            "Correctness": "+3: Correctly escalated for unconscious person.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello, I noticed you may have fallen. Are you alright?\nPerson: Oh goodness, yes I did! Just a little slip on the rug.\nAI: I'm glad you're talking with me. Are you experiencing any pain?\nPerson: No, no pain. Just a bit embarrassed, honestly!\nAI: No need to be embarrassed at all. Can you move around normally?\nPerson: Yes, I'm already back on my feet. Just knocked over that vase, unfortunately.\nAI: Accidents happen! Just to be thorough, any dizziness or discomfort at all?\nPerson: None whatsoever. I'm completely fine.\nAI: That's great news. No need for emergency services then. Maybe consider securing that rug so it doesn't slip in the future?\nPerson: Good idea! Thank you for checking on me.",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: Appropriate assessment pace.",
+            "Information Gain": "+2: Confirmed mobility and absence of symptoms.",
+            "Correctness": "+3: Correctly determined no emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello there, I noticed you fell. Are you okay?\nPerson: What? Who's talking?\nAI: This is your home assistant. I saw that you fell. Can you tell me if you're hurt?\nPerson: I... I'm not sure what happened. Where am I?\nAI: You're in your home. Your confusion concerns me. Did you hit your head when you fell?\nPerson: Maybe? Everything's fuzzy... I don't remember falling.\nAI: I understand. Based on your disorientation, I'm going to call emergency services right away. This could be serious.\nPerson: Yes... okay... I don't feel right.",
+        "Final Triage Decision": "AI: Calling emergency services due to disorientation and possible head injury.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Quick decision based on cognitive symptoms.",
+            "Information Gain": "+2: Identified disorientation and memory issues efficiently.",
+            "Correctness": "+3: Correctly escalated for neurological symptoms.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello, I noticed a sudden movement. Are you alright?\nPerson: Oh! Yes, I'm fine. I just sat down quickly because my show came on.\nAI: I see! Sorry for the concern. So you just sat down fast, no fall occurred?\nPerson: That's right. Just plopped down to catch my program. False alarm!\nAI: Thank you for clarifying. No need to worry then. Enjoy your show!\nPerson: Thank you, dear. Sorry to startle you!",
+        "Final Triage Decision": "AI: No emergency, false detection confirmed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Quick resolution of false alarm.",
+            "Information Gain": "+1: Confirmed nature of movement efficiently.",
+            "Correctness": "+3: Correctly identified false detection.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom, reporting chest pain.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you able to respond?\nPerson: Yes... I slipped in the bathroom...\nAI: I'm here to help. Are you injured?\nPerson: My chest... it hurts. Started before I fell...\nAI: I understand. The chest pain is very concerning. Did the pain cause you to fall?\nPerson: Yes... got dizzy... pain in my left arm too...\nAI: I'm calling emergency services immediately. These symptoms could indicate a heart problem. Stay as still as comfortable and help will be there soon.\nPerson: Please hurry...",
+        "Final Triage Decision": "AI: Emergency services called urgently for possible cardiac event.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Immediate recognition of cardiac symptoms.",
+            "Information Gain": "+2: Quickly identified critical symptoms.",
+            "Correctness": "+3: Correctly prioritized cardiac symptoms over fall.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell while gardening outside.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you okay?\nPerson: Yes, I just tripped over the garden hose. I'm fine.\nAI: I'm glad you're responding. Did you hurt yourself at all?\nPerson: Just a scrape on my knee, nothing serious.\nAI: Good to hear it's minor. Are you able to get up on your own?\nPerson: Yes, I'm already up and continuing with my gardening.\nAI: Perfect. No dizziness or other concerns?\nPerson: None at all. Just a clumsy moment!\nAI: These things happen! No need for emergency services then. Maybe coil that hose when you're done gardening?\nPerson: Definitely will! Thanks for checking.",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: Appropriate assessment pace.",
+            "Information Gain": "+1: Confirmed mobility and injury status.",
+            "Correctness": "+3: Correctly determined no emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 5
+        }
+    },
+    {
+        "Situation Context": "Person fell from standing position and is now complaining of inability to move legs.",
+        "Conversation Log": "AI: Hello? I detected that you fell. Are you able to respond?\nPerson: Yes... something's wrong. I can't move my legs.\nAI: I understand, and I'm here to help. Did you hit your back or neck when you fell?\nPerson: I think so. I felt a snap in my back. Now I can't feel my legs at all.\nAI: This is very serious. I'm calling emergency services right away. Please don't try to move at all - stay exactly as you are until help arrives.\nPerson: I'm scared. Will they come quickly?\nAI: Yes, they'll prioritize this. I'm making the call now. Stay calm and keep talking with me until they arrive.",
+        "Final Triage Decision": "AI: Emergency services called urgently for possible spinal injury.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Immediate recognition of serious symptoms.",
+            "Information Gain": "+2: Quickly identified potential spinal injury.",
+            "Correctness": "+3: Correctly escalated for neurological symptoms.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person knocked over by large dog but laughing.",
+        "Conversation Log": "AI: Hello, I noticed a fall. Are you okay?\nPerson: Haha! Yes, Rufus just got excited and knocked me over. You should have seen it!\nAI: I'm glad you're laughing about it! Just to be sure, you're not hurt at all?\nPerson: Not a bit. Though Rufus might be hurt by how much his treat allowance is getting cut!\nAI: That made me smile! So no need for any assistance then?\nPerson: Absolutely not. Just a playful dog moment. Sorry for the alarm.\nAI: No apology needed! That's what I'm here for. Enjoy the rest of your day with Rufus!\nPerson: Will do! Though maybe with a little less excitement next time.",
+        "Final Triage Decision": "AI: No emergency services needed, confirmed benign incident.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: Quick assessment matched light-hearted situation.",
+            "Information Gain": "+1: Confirmed nature of fall efficiently.",
+            "Correctness": "+3: Correctly identified no emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you able to respond?\nPerson: Yes... I'm here. I can't move though.\nAI: I'm glad you can speak with me. Can you tell me if you're experiencing any pain?\nPerson: My hip... it's really bad. I think I broke something.\nAI: I understand. Are you able to move your legs at all?\nPerson: No, I can't move my right leg at all. The pain is terrible.\nAI: I'm going to call emergency services for you right away. Try to stay as still as possible.\nPerson: Thank you... please hurry.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision in 4 turns.",
+            "Information Gain": "+2: Each question provided critical details about mobility and pain.",
+            "Correctness": "+3: AI correctly escalated the case with potential hip fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello there, I noticed you fell. Do you need assistance?\nPerson: I... yes. I'm trying to get up but my arm hurts.\nAI: I'm sorry to hear that. Can you describe the pain in your arm?\nPerson: It's sharp, near my wrist. I think I landed on it when I fell.\nAI: I understand. Are you experiencing any dizziness or did you hit your head?\nPerson: No, just my arm. I didn't hit my head.\nAI: Can you move your fingers on the injured arm?\nPerson: Yes, but it hurts when I try to put weight on my wrist.\nAI: Based on what you're describing, you may have injured your wrist. I recommend calling emergency services to have it properly examined.\nPerson: Okay, yes please call them.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+0: AI took 5 turns to reach a decision.",
+            "Information Gain": "+2: Questions effectively assessed injury location and severity.",
+            "Correctness": "+3: AI correctly escalated with potential wrist fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 5
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious.",
+        "Conversation Log": "AI: Hello? Can you hear me? Please respond if you can.\nPerson: [No response after 5 seconds]\nAI: I'm detecting a potential emergency. If you can hear me but cannot respond, help is on the way.\nPerson: [Faint groaning]\nAI: I hear you. I'm calling emergency services immediately. Please try to remain still if possible.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly escalated after no clear response.",
+            "Information Gain": "+1: AI correctly interpreted lack of response as emergency.",
+            "Correctness": "+3: AI correctly called emergency services for unconscious person.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you alright?\nPerson: Oh goodness, yes I'm fine. Just slipped on the rug.\nAI: I'm glad to hear you're responsive. Are you experiencing any pain or discomfort?\nPerson: No, no pain. Just a bit embarrassed really!\nAI: No need to be embarrassed! These things happen. Can you stand up on your own?\nPerson: Yes, I'm already up. Just catching my breath.\nAI: That's great. Any dizziness or unusual sensations before you fell?\nPerson: No, it was purely the rug. I should tape that corner down.\nAI: Sounds like a good idea! I'm happy to confirm you're okay, but please take it easy for the rest of the day.",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI confirmed safety in 5 turns.",
+            "Information Gain": "+2: Questions addressed pain, ability to stand, and pre-fall symptoms.",
+            "Correctness": "+3: AI correctly determined no emergency was needed.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Are you okay?\nPerson: What? Who's talking? Where am I?\nAI: I'm your home assistant. You appear to have fallen. Can you tell me your name?\nPerson: I'm... Martha. I don't know what happened.\nAI: Martha, can you tell me what day it is today?\nPerson: Is it... Tuesday? No, Wednesday? I'm not sure.\nAI: That's okay, Martha. Are you feeling any pain anywhere?\nPerson: My head hurts. I think I hit it on something.\nAI: I understand. I'm concerned about your disorientation and head pain. I'm calling emergency services right away to help you.\nPerson: Yes... please. I don't feel right.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI made decision after 5 exchanges.",
+            "Information Gain": "+2: Questions effectively assessed orientation and head injury.",
+            "Correctness": "+3: AI correctly escalated with signs of confusion and head trauma.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello, I detected a possible fall. Are you alright?\nPerson: Fall? No, I just sat down quickly because the phone was ringing!\nAI: I see! My mistake. So you're not experiencing any problems or discomfort?\nPerson: Not at all. The phone startled me is all.\nAI: That's a relief! Sorry for the false alarm. Enjoy your phone call!",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified false alarm in 2 turns.",
+            "Information Gain": "+1: Confirmed no injury with efficient questioning.",
+            "Correctness": "+3: AI correctly avoided unnecessary escalation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom, having chest pain.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you able to respond?\nPerson: Yes... I fell in the bathroom. I'm having trouble breathing.\nAI: I understand. Can you tell me more about your breathing difficulty?\nPerson: It's tight in my chest. And I'm feeling pain down my left arm.\nAI: This is concerning. How severe is the chest pain on a scale of 1 to 10?\nPerson: About an 8... it's really bad.\nAI: I'm calling emergency services immediately. These symptoms require urgent medical attention. Try to remain as calm as possible and don't attempt to get up.\nPerson: Please hurry.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI escalated in 4 turns.",
+            "Information Gain": "+2: Quickly identified cardiac warning signs.",
+            "Correctness": "+3: AI correctly identified potential heart attack symptoms requiring immediate attention.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person tripped over dog but is laughing.",
+        "Conversation Log": "AI: Hello, I noticed a fall. Are you okay?\nPerson: Haha! Yes, I'm fine. My silly dog ran right under my feet!\nAI: Dogs can certainly be enthusiastic! Just to be sure, did you hurt yourself at all?\nPerson: Not at all. We're both perfectly fine, just a little startled.\nAI: That's great to hear! Sounds like your dog might need some training on not being a tripping hazard!\nPerson: Absolutely! This isn't the first time, but we love him anyway.\nAI: Glad everyone's okay. Enjoy the rest of your day with your four-legged friend!",
+        "Final Triage Decision": "AI: No emergency detected.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined no emergency in 2 turns.",
+            "Information Gain": "+1: Confirmed lack of injury efficiently.",
+            "Correctness": "+3: AI correctly avoided escalation for minor incident.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell from stepladder while changing lightbulb.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Are you able to respond?\nPerson: Yes, I fell off the stepladder. I was changing the bulb in the ceiling light.\nAI: I understand. Are you experiencing any pain?\nPerson: My ankle really hurts. I think I twisted it badly.\nAI: Can you move your foot or put any weight on it?\nPerson: I tried to stand but it's too painful. I think it might be broken.\nAI: What about any other injuries? Did you hit your head or hurt anything else?\nPerson: No, just my ankle. But I can't get up.\nAI: Based on what you're describing, I think we should call emergency services to help you. You may have a fracture and shouldn't try to move.\nPerson: Yes, please call them. I can't walk to the phone.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+0: AI took 5 turns to reach a decision.",
+            "Information Gain": "+2: Questions effectively assessed mobility and injury.",
+            "Correctness": "+3: AI correctly escalated with potential fracture and inability to move.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 5
+        }
+    },
+    {
+        "Situation Context": "Person slipped on ice outside front door.",
+        "Conversation Log": "AI: Hello? I detected that you fell. Are you alright?\nPerson: I slipped on the ice outside. My back hurts.\nAI: I'm sorry to hear that. Can you rate your back pain from 1 to 10?\nPerson: About a 6... it's pretty bad.\nAI: Are you able to move your legs normally?\nPerson: Yes, I can move them, but my lower back hurts when I try to sit up.\nAI: Understood. Do you have any numbness or tingling in your limbs?\nPerson: No, nothing like that.\nAI: Have you had back problems before, or does this feel different?\nPerson: I have arthritis, but this is sharper. I think I really wrenched it.\nAI: Given the severity of your pain and the nature of your fall, I recommend calling emergency services to evaluate your back injury properly. Back injuries can be serious.\nPerson: Yes, I think that's best. I don't think I can get up safely.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "-1: AI took 6 turns to reach a decision.",
+            "Information Gain": "+2: Questions thoroughly assessed back injury severity and symptoms.",
+            "Correctness": "+3: AI correctly escalated with potential serious back injury.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 4
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you able to respond?\nPerson: Yes... I'm here...\nAI: I'm glad to hear your voice. Are you able to move at all?\nPerson: I tried but... my hip... something's wrong. It hurts so much.\nAI: I understand that must be painful. Can you tell me if you hit your head during the fall?\nPerson: No, just my side. But I can't get up.\nAI: Thank you for that information. Given your hip pain and inability to get up, I think we should call emergency services. Is that okay with you?\nPerson: Yes, please... I need help.\nAI: I'm calling emergency services right now. Stay calm and try not to move. Help will be there soon.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision after thorough assessment.",
+            "Information Gain": "+2: Each question provided critical information about mobility and injury.",
+            "Correctness": "+3: AI correctly escalated a situation with potential hip fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello there, I noticed you fell. Are you okay?\nPerson: I... I think so. Just trying to get back up.\nAI: Take your time. Are you experiencing any pain?\nPerson: My wrist hurts where I landed on it. And I'm a bit dizzy.\nAI: I understand. The dizziness concerns me. Did you hit your head when you fell?\nPerson: I don't think so... no, I didn't hit my head.\nAI: That's good. Can you tell me if your wrist looks swollen or appears deformed?\nPerson: It's starting to swell a bit, but I can move my fingers.\nAI: Given your dizziness and wrist injury, I think it would be best to have someone check you out. Would you like me to call emergency services?\nPerson: Maybe just my daughter instead? She lives nearby.\nAI: That sounds like a good plan. Would you like me to help you contact her?",
+        "Final Triage Decision": "AI: No emergency services called; family member contacted instead.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI assessed appropriately before suggesting medical attention.",
+            "Information Gain": "+2: Questions about head injury, dizziness, and wrist condition were all relevant.",
+            "Correctness": "+3: AI correctly identified a non-emergency that still needed attention.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious after fall from chair.",
+        "Conversation Log": "AI: Hello? Can you hear me? Please respond if you can.\nPerson: [No response]\nAI: I'm detecting that you may have fallen and aren't responding. If you can hear me, please make any sound or movement.\nPerson: [No response after 5 seconds]\nAI: Due to your lack of response, I'm calling emergency services right now. Help is on the way.",
+        "Final Triage Decision": "AI: Calling emergency services immediately due to unconsciousness.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified a critical situation requiring immediate response.",
+            "Information Gain": "+1: AI attempted to confirm consciousness appropriately.",
+            "Correctness": "+3: AI correctly escalated an unconscious patient situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello there, I noticed you took a fall. Are you alright?\nPerson: Oh goodness, yes I'm fine. Just lost my balance for a moment.\nAI: I'm glad to hear that. Are you experiencing any pain or discomfort?\nPerson: No, not at all. Just a little embarrassed!\nAI: No need to be embarrassed at all. These things happen! Just to be sure, are you feeling dizzy or lightheaded?\nPerson: No, I feel completely normal. I just wasn't paying attention to where I was going.\nAI: That's good to hear. Would you like to rest for a bit, or are you comfortable continuing with your day?\nPerson: I'm perfectly fine to continue. Thank you for checking on me!\nAI: You're very welcome. I'm here if you need anything else. Have a wonderful day!",
+        "Final Triage Decision": "AI: No emergency detected; person is fine.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined there was no emergency.",
+            "Information Gain": "+1: Questions about pain and dizziness were appropriate.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling in bathroom.",
+        "Conversation Log": "AI: Hello? I noticed you may have fallen. Are you okay?\nPerson: What? Who's talking?\nAI: This is your home assistance system. I'm checking on you because I detected a fall. Can you tell me if you're hurt?\nPerson: I'm in the bathroom... I slipped. What day is it?\nAI: It's Tuesday morning. I'm concerned that you seem disoriented. Did you hit your head when you fell?\nPerson: Maybe... everything's fuzzy. My head hurts.\nAI: That's important information. Are you bleeding anywhere?\nPerson: I don't... I don't think so.\nAI: Given your confusion and head pain, I'm going to call emergency services to check on you. Is that okay?\nPerson: Yes... yes please.\nAI: I'm calling them right now. Try to stay still and remain calm. Help will be there soon.",
+        "Final Triage Decision": "AI: Calling emergency services due to disorientation and head injury.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI recognized the seriousness but confirmed key symptoms first.",
+            "Information Gain": "+2: Questions about head injury and disorientation were crucial.",
+            "Correctness": "+3: AI correctly escalated a potential head injury.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello there, I noticed a sudden movement. Are you alright?\nPerson: Oh! Yes, I just sat down quickly. My knees were tired.\nAI: I see! Sorry for the confusion. So you didn't actually fall?\nPerson: No, no fall. Just these old knees giving me trouble.\nAI: That's a relief! Thank you for clarifying. Is there anything you need assistance with?\nPerson: No, I'm just going to rest here for a bit with my book.\nAI: Sounds perfect. Enjoy your reading! I'm here if you need anything.",
+        "Final Triage Decision": "AI: False alarm confirmed; no emergency.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified the false alarm.",
+            "Information Gain": "+1: Directly confirmed there was no fall.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell and is experiencing chest pain.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Are you okay?\nPerson: I don't feel good... my chest hurts.\nAI: I'm sorry to hear that. Is the chest pain severe?\nPerson: Yes... it's tight, like pressure.\nAI: This sounds serious. Did the chest pain start before or after you fell?\nPerson: Before... I think that's why I fell.\nAI: Thank you for that important information. Are you also experiencing shortness of breath or pain in your arm?\nPerson: Yes... hard to breathe... left arm feels strange.\nAI: I'm calling emergency services right away. These symptoms could indicate a heart problem. Try to remain as calm as possible, help is on the way.\nPerson: Please hurry.\nAI: They're being contacted right now. Stay on the line with me until they arrive.",
+        "Final Triage Decision": "AI: Calling emergency services immediately for potential cardiac event.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized the cardiac warning signs.",
+            "Information Gain": "+2: Questions about timing of pain and additional symptoms were critical.",
+            "Correctness": "+3: AI correctly escalated a potential heart attack.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person tripped on rug but caught themselves.",
+        "Conversation Log": "AI: Hello there, I noticed a sudden movement. Are you alright?\nPerson: Yes, I just tripped on the corner of this darn rug, but I caught myself.\nAI: I'm glad you caught yourself! That was quick thinking. Are you feeling steady now?\nPerson: Yes, I'm fine. Just need to get this rug taped down or something.\nAI: That sounds like a good safety measure. No pain or discomfort from the near-fall?\nPerson: Not at all. Thanks for checking though!\nAI: You're welcome! Let me know if you'd like suggestions for securing that rug. Have a good rest of your day!",
+        "Final Triage Decision": "AI: No emergency; person avoided fall.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined there was no emergency.",
+            "Information Gain": "+1: Confirmed stability and lack of injuries.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell and has severe leg pain with visible deformity.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Can you respond?\nPerson: Oh god, my leg! My leg!\nAI: I'm here to help. Can you describe what's happening with your leg?\nPerson: It's twisted... it doesn't look right. It really hurts!\nAI: That sounds serious. Can you see any bone or is there any bleeding?\nPerson: No bone, but it's swelling fast and looks bent wrong.\nAI: Given what you're describing, I'm going to call emergency services right away. Try not to move your leg at all.\nPerson: Please hurry! The pain is terrible.\nAI: I'm calling them now. Stay as still as possible. Help will be there soon. I'll stay connected with you until they arrive.",
+        "Final Triage Decision": "AI: Calling emergency services for likely fracture.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified a serious injury requiring immediate attention.",
+            "Information Gain": "+2: Questions about visible bone and bleeding were critical for assessment.",
+            "Correctness": "+3: AI correctly escalated a likely fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell while getting out of bed and is confused about their location.",
+        "Conversation Log": "AI: Hello? I noticed you may have fallen. Are you alright?\nPerson: Where am I? This isn't my house...\nAI: You're in your bedroom. It seems you may have fallen while getting out of bed. Do you know what day it is today?\nPerson: Tuesday? No... Sunday?\nAI: It's actually Friday morning. I'm concerned about your confusion. Did you hit your head when you fell?\nPerson: I don't remember falling... who are you?\nAI: I'm your home assistance system. Your confusion is concerning. Are you feeling any pain anywhere?\nPerson: My head hurts a little.\nAI: Given your confusion and head pain, I'm going to call emergency services to come check on you. This could be serious.\nPerson: Okay... I don't feel right.\nAI: I'm calling them now. Just stay where you are and try to remain calm. Help will be there soon.",
+        "Final Triage Decision": "AI: Calling emergency services due to confusion and disorientation.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI assessed orientation before making decision.",
+            "Information Gain": "+2: Questions about time orientation and head injury provided critical information.",
+            "Correctness": "+3: AI correctly escalated a situation with confusion and head pain.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello? I noticed a fall. Are you able to respond?\nPerson: Yes... I'm here. I fell.\nAI: I'm glad you can respond. Are you able to move at all?\nPerson: I tried but my hip... there's terrible pain when I move.\nAI: I understand that must be frightening. Can you tell me if you hit your head?\nPerson: No, I don't think so. Just my hip.\nAI: Thank you for that information. Given the hip pain preventing movement, I'm going to call emergency services for you now. Try to stay calm and still.\nPerson: Yes, please call. I can't get up.\nAI: Help is on the way. I'll stay connected with you until they arrive.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision in 4 turns.",
+            "Information Gain": "+2: Each question provided critical assessment details.",
+            "Correctness": "+3: AI correctly escalated for immobility and hip pain.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello there, I noticed you fell. Are you okay?\nPerson: I... yes, I slipped. Trying to get back up.\nAI: I see you're having some difficulty. Are you experiencing any pain?\nPerson: My wrist hurts pretty bad. I think I landed on it.\nAI: I understand. Is the pain severe enough that you think it might be broken?\nPerson: It's swelling up quickly and I can't move it without terrible pain.\nAI: That sounds concerning. Based on the swelling and pain level, I think we should have someone take a look. Would you like me to call emergency services?\nPerson: Yes, I think that would be best. I can't drive like this.\nAI: I'll call for help right away. Try not to move your wrist, and stay where you are comfortable.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI assessed the situation methodically.",
+            "Information Gain": "+2: Questions effectively identified the injury severity.",
+            "Correctness": "+3: Correctly escalated for potential fracture.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious.",
+        "Conversation Log": "AI: Hello? Can you hear me? Are you okay?\nPerson: [No response]\nAI: I'm detecting that you may have fallen. If you can hear me, please respond.\nPerson: [Faint groaning]\nAI: I hear you're in distress. I'm calling emergency services immediately. Help will be on the way soon.\nPerson: [Unintelligible mumbling]\nAI: Stay with me. I've called for help and they're coming. Try not to move if you can hear me.",
+        "Final Triage Decision": "AI: Emergency services called immediately due to unresponsiveness.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized the emergency.",
+            "Information Gain": "+1: Confirmed unresponsiveness promptly.",
+            "Correctness": "+3: Correctly identified unconsciousness as requiring immediate help.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you alright?\nPerson: Oh! Yes, I just lost my balance reaching for that book on the top shelf.\nAI: I'm glad you're responding well. Are you experiencing any pain or dizziness?\nPerson: No pain really. Just a bit embarrassed I suppose!\nAI: No need for embarrassment! These things happen. Can you move around normally?\nPerson: Yes, I'm up and walking just fine. See? No problems.\nAI: That's excellent. Since you're moving well and not experiencing pain or dizziness, it seems you're okay. Would you like me to check in with you again in a little while?\nPerson: No need, I'm perfectly fine. Thanks for checking though!\nAI: You're welcome! Just take it a bit slower with those high shelves next time.",
+        "Final Triage Decision": "AI: No emergency detected. Person is safe.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI confirmed status efficiently.",
+            "Information Gain": "+2: Questions assessed mobility and symptoms effectively.",
+            "Correctness": "+3: Correctly identified non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Are you okay?\nPerson: What? I... where am I?\nAI: You're at home. It looks like you might have fallen. Can you tell me your name?\nPerson: I'm... Margaret. My head hurts.\nAI: Margaret, thank you. I'm concerned about your confusion. Did you hit your head when you fell?\nPerson: I think so... the room is spinning a bit.\nAI: That sounds like you might have a concussion. I'm going to call emergency services right away. Try to stay still and don't get up, okay?\nPerson: Okay... I feel strange.\nAI: Help is on the way, Margaret. Stay with me and try to stay awake until they arrive.",
+        "Final Triage Decision": "AI: Calling emergency services due to head injury and disorientation.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized the signs of concussion.",
+            "Information Gain": "+2: Questions effectively identified cognitive status.",
+            "Correctness": "+3: Correctly escalated for potential head injury.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello, I detected a possible fall. Are you okay?\nPerson: Fall? No, I just sat down quickly! My show was starting.\nAI: Oh, I see! Sorry for the confusion. Just to be sure, you intentionally sat down and you're feeling fine?\nPerson: Absolutely! Just eager to catch my program. These sensors are a bit too sensitive sometimes.\nAI: They can be, but better safe than sorry! Enjoy your show then. Is there anything else you need?\nPerson: No thanks, I'm perfectly comfortable. Thanks for checking though.\nAI: You're welcome! Enjoy your program, and don't hesitate if you need anything.",
+        "Final Triage Decision": "AI: False alarm confirmed. No emergency.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized the false alarm.",
+            "Information Gain": "+1: Confirmed status efficiently.",
+            "Correctness": "+3: Correctly identified non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom, reporting chest pain.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you able to respond?\nPerson: Yes... I slipped in the bathroom.\nAI: I'm sorry to hear that. Are you experiencing any pain?\nPerson: My chest... it's tight. Started before I fell.\nAI: That's concerning. Was the chest pain what caused you to fall?\nPerson: I think so... feeling short of breath too.\nAI: This sounds like a potential cardiac event. I'm calling emergency services immediately. Try to remain as still and calm as possible.\nPerson: Please hurry...\nAI: They're on their way. Stay with me and try to take slow, shallow breaths if you can.",
+        "Final Triage Decision": "AI: Calling emergency services immediately for possible cardiac event.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified the cardiac symptoms.",
+            "Information Gain": "+2: Questions targeted the critical symptoms efficiently.",
+            "Correctness": "+3: Correctly prioritized chest pain over fall.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell from standing position but is laughing.",
+        "Conversation Log": "AI: Hello, I noticed you fell. Are you alright?\nPerson: [Laughing] Oh my goodness, I'm fine! Just took a silly tumble trying to dance to this commercial!\nAI: I'm glad you can laugh about it! Just to make sure, did you hit anything on the way down?\nPerson: No, no. Just my pride! I'm getting too old for these dance moves.\nAI: Age is just a number when it comes to dancing! Are you able to get up okay?\nPerson: Already up and at 'em! No harm done. Thanks for checking though.\nAI: That's great to hear! Maybe stick to the slower songs next time?\nPerson: [Laughing] No promises! These commercials are just too catchy.\nAI: Fair enough! Glad you're okay. Enjoy the rest of your show!",
+        "Final Triage Decision": "AI: No emergency detected. Person is in good spirits and uninjured.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI confirmed status efficiently.",
+            "Information Gain": "+2: Questions verified mobility and injury status.",
+            "Correctness": "+3: Correctly identified non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell and is experiencing severe leg pain with visible deformity.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you able to respond?\nPerson: Yes... oh my god, my leg!\nAI: I can hear you're in distress. Can you tell me what's happening with your leg?\nPerson: It's twisted... it looks wrong. I can see it's bent where it shouldn't be!\nAI: That sounds like a possible fracture. I'm going to call emergency services right away. Try not to move your leg at all.\nPerson: It hurts so much... please hurry.\nAI: I'm calling now. Help will be there soon. Try to stay as still as possible and focus on your breathing.",
+        "Final Triage Decision": "AI: Calling emergency services immediately for suspected fracture.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly identified the emergency.",
+            "Information Gain": "+2: Rapidly established the nature of the injury.",
+            "Correctness": "+3: Correctly escalated for visible deformity.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person slid from wheelchair but is not injured.",
+        "Conversation Log": "AI: Hello, I noticed a fall. Are you okay?\nPerson: I didn't exactly fall. My wheelchair slid and I ended up on the floor.\nAI: I understand. Are you experiencing any pain or discomfort?\nPerson: No pain, I'm just stuck down here. Can't get back into my chair.\nAI: That's a difficult situation. Is there someone nearby who could help you back into your wheelchair?\nPerson: My son is coming over in about 15 minutes anyway.\nAI: Are you comfortable waiting for him, or would you prefer I call someone to help sooner?\nPerson: I'm fine waiting. I'm not hurt, just a bit embarrassed.\nAI: There's no need for embarrassment. These things happen. Are you in a comfortable position while you wait?\nPerson: Yes, I'm leaning against the wall. I'll be fine until he gets here.\nAI: Alright. I'll check in with you again in a few minutes. Let me know if anything changes.",
+        "Final Triage Decision": "AI: No emergency detected. Person will receive assistance soon.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI assessed the situation appropriately.",
+            "Information Gain": "+2: Questions established safety and support plan.",
+            "Correctness": "+3: Correctly identified non-emergency with pending help.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello there, I noticed a fall. Are you able to respond?\nPerson: Yes... I'm here. I can't move well.\nAI: I'm glad you can respond. Can you tell me if you're experiencing any pain?\nPerson: My hip... it really hurts. I can't get up.\nAI: I understand. Are you able to move your legs at all?\nPerson: No, my left leg won't move and the pain is terrible.\nAI: I'm going to call emergency services right away. This sounds serious. Try to stay still and I'll stay with you until help arrives.\nPerson: Please hurry, I'm scared.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision in 4 turns",
+            "Information Gain": "+2: Each question provided critical assessment information",
+            "Correctness": "+3: AI correctly escalated with potential hip fracture",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hi there, I noticed you fell and might be having trouble getting up. Are you okay?\nPerson: I slipped on the rug. My wrist hurts a bit but I think I'm alright.\nAI: I'm sorry about your wrist. Can you move it, or is there any swelling?\nPerson: It moves but hurts when I bend it. There's some swelling starting.\nAI: That could be a sprain or possibly a fracture. Are you able to stand up safely?\nPerson: Yes, I'm up now but feeling a bit dizzy.\nAI: The dizziness concerns me. Have you hit your head when you fell?\nPerson: No, I don't think so. The dizziness was why I fell, actually.\nAI: I see. Given the wrist injury and the dizziness that preceded your fall, I recommend calling medical help to have you checked out properly.",
+        "Final Triage Decision": "AI: Calling non-emergency medical services.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI gathered sufficient information before deciding",
+            "Information Gain": "+2: Questions revealed important context about dizziness causing the fall",
+            "Correctness": "+3: AI correctly recognized non-emergency requiring medical attention",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious.",
+        "Conversation Log": "AI: Hello? Can you hear me? I've detected a fall.\nPerson: [No response]\nAI: If you can hear me, please try to respond. I'm concerned about your condition.\nPerson: [Faint groaning]\nAI: I hear you're making sounds but not speaking. I'm calling emergency services immediately. Help is on the way. If you can hear me, try to remain still.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined emergency status after no clear response",
+            "Information Gain": "+1: AI correctly recognized groaning as distress signal",
+            "Correctness": "+3: AI correctly escalated an unconscious/semi-conscious case",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello there, I noticed you took a tumble. Are you alright?\nPerson: Oh goodness, yes I'm fine! Just lost my balance reaching for that book.\nAI: I'm glad to hear that. Any pain or discomfort I should know about?\nPerson: Not really. My pride is hurt more than anything else!\nAI: That happens to the best of us! Just to be sure, you're able to move normally?\nPerson: Yes, completely fine. Already back on my feet as you can see.\nAI: Wonderful! No need for any emergency services then. Maybe consider keeping frequently used items at waist level to avoid stretching too much.\nPerson: That's good advice. Thank you for checking on me!",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly assessed normal response pattern",
+            "Information Gain": "+1: Follow-up questions confirmed mobility and absence of pain",
+            "Correctness": "+3: AI correctly determined no medical intervention needed",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Are you okay?\nPerson: What? Who's talking? Where...\nAI: I'm your home assistance system. You seem to have fallen. Can you tell me your name?\nPerson: I'm... Martha. I don't... what time is it?\nAI: Martha, it's 3:30 in the afternoon. You seem disoriented. Did you hit your head?\nPerson: Maybe? Everything's fuzzy. My head hurts.\nAI: Based on your disorientation and head pain, I'm calling emergency services right away. Try to stay still and don't get up, Martha. Help will be here soon.\nPerson: Okay... thank you.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI quickly identified confusion but verified before escalating",
+            "Information Gain": "+2: Questions revealed name recall and time disorientation",
+            "Correctness": "+3: AI correctly escalated a potential head injury",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello, I detected a possible fall. Are you alright?\nPerson: Fall? No, I just sat down quickly on the sofa!\nAI: I see! Sorry for the confusion. So you're completely fine then?\nPerson: Yes, absolutely fine. Just watching my show and sat down when it started.\nAI: That's a relief! Sorry for the interruption. Enjoy your program!\nPerson: No problem. Better safe than sorry!",
+        "Final Triage Decision": "AI: No emergency services needed. False alarm confirmed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI immediately accepted clear explanation of false alarm",
+            "Information Gain": "+1: Confirmation question was appropriate",
+            "Correctness": "+3: AI correctly identified false alarm",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom, responding but in pain.",
+        "Conversation Log": "AI: Hello? I detected a fall in the bathroom. Are you able to respond?\nPerson: Yes... I slipped getting out of the shower. My back hurts.\nAI: I'm sorry to hear that. Are you able to move at all?\nPerson: I can move my arms and legs, but my back really hurts when I try to get up.\nAI: I understand. Are you bleeding or do you have any other injuries?\nPerson: No bleeding, just the back pain. I'm also cold, lying here wet.\nAI: This sounds concerning, especially with back pain preventing you from getting up. I'm going to call emergency services to help you. In the meantime, try not to move too much.\nPerson: Okay, thank you.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI gathered key information before deciding",
+            "Information Gain": "+2: Questions assessed mobility, bleeding, and environmental concerns",
+            "Correctness": "+3: AI correctly escalated with back injury in unsafe situation",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person tripped over pet but caught themselves.",
+        "Conversation Log": "AI: Hello, I noticed a sudden movement. Did you fall?\nPerson: No, I almost did! The cat ran right under my feet, but I caught myself on the counter.\nAI: Oh, those sneaky pets! Are you feeling steady now?\nPerson: Yes, I'm fine. Just a bit startled.\nAI: That's good to hear. No twisted ankles or anything?\nPerson: Nope, all good. Thanks for checking though!\nAI: Anytime! Maybe we should put a bell on that cat, huh?\nPerson: Haha, not a bad idea actually!",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined no actual fall occurred",
+            "Information Gain": "+1: Follow-up confirmed no injuries",
+            "Correctness": "+3: AI correctly avoided unnecessary escalation",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell and is experiencing chest pain.",
+        "Conversation Log": "AI: Hello? I noticed you fell. Are you okay?\nPerson: I feel... chest hurts... can't breathe well.\nAI: I'm very concerned about your chest pain and trouble breathing. Did the chest pain start before or after you fell?\nPerson: Before... then I got dizzy and fell.\nAI: This sounds like a potential cardiac issue. I'm calling emergency services immediately. Try to remain as still and calm as possible. Help is on the way.\nPerson: Please hurry...",
+        "Final Triage Decision": "AI: Calling emergency services now. Priority cardiac situation.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI immediately recognized critical symptoms",
+            "Information Gain": "+2: Key question determined chest pain preceded fall",
+            "Correctness": "+3: AI correctly prioritized potential cardiac emergency",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell from standing position while gardening.",
+        "Conversation Log": "AI: Hello there, I noticed you fell while in the garden. Are you alright?\nPerson: Yes, I just lost my balance when I was kneeling down to pull some weeds.\nAI: I'm glad to hear you're responsive. Any pain or injuries I should know about?\nPerson: My knee scraped on the garden stones, but it's just a minor cut.\nAI: I see. Are you able to stand up on your own?\nPerson: Yes, I'm already back up. Just need to clean this scrape.\nAI: That's good news. Do you feel dizzy or lightheaded at all?\nPerson: No, I feel fine. Just wasn't paying attention to my balance.\nAI: Sounds like you're okay then. Remember to clean that scrape properly to prevent infection.\nPerson: Will do! Thanks for checking in.",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI systematically ruled out serious injury",
+            "Information Gain": "+2: Questions assessed injury severity, mobility, and neurological status",
+            "Correctness": "+3: AI correctly determined minor injury requiring no intervention",
+            "False Positives/Negatives": "0: No mistakes",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person detected falling, no movement detected for 10 seconds.",
+        "Conversation Log": "AI: Hello? I noticed you may have fallen. Are you able to respond?\nPerson: Yes... I'm here... Oh my goodness.\nAI: I'm glad you can respond. Are you able to move at all?\nPerson: I tried to get up but I can't. My hip feels wrong... it really hurts.\nAI: I understand that must be very painful. Can you tell me if you hit your head during the fall?\nPerson: No, I don't think so. Just my hip.\nAI: Thank you for letting me know. Based on your inability to get up and the hip pain, I think we should call emergency services to help you. Is that alright?\nPerson: Yes, please. I think I need help.\nAI: I'm calling emergency services right now. Stay as comfortable as possible. Help will be on the way soon.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI reached a confident decision in 4 turns.",
+            "Information Gain": "+2: Questions about movement ability and head injury provided critical information.",
+            "Correctness": "+3: AI correctly escalated the case given immobility and hip pain.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person seen attempting to get up but struggling.",
+        "Conversation Log": "AI: Hello there, I noticed you might have fallen. Are you okay?\nPerson: I slipped... trying to get up but my knee is giving me trouble.\nAI: I see you're having difficulty. Are you experiencing any severe pain?\nPerson: It's sore but not terrible. I just can't seem to get enough leverage to stand.\nAI: Understood. Have you injured this knee before, or is this new?\nPerson: It's my bad knee. I have arthritis. Sometimes it locks up.\nAI: I see. Do you think you can get to a chair or sofa if I stay on the line with you?\nPerson: Let me try... yes, I can scoot over to the sofa. Just give me a minute.\nAI: Take your time. I'll stay with you... How are you doing now?\nPerson: Made it to the sofa. I'm sitting now. That's better.\nAI: Excellent. Do you think you need medical attention, or is this similar to previous episodes with your knee?\nPerson: No, this happens sometimes. Once I rest it a bit, I'll be fine. My daughter is coming over later anyway.\nAI: I'm glad to hear you're feeling better. Since this is a known issue and you have support coming, we don't need to call emergency services. Would you like me to check in on you later?",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI patiently assessed the situation.",
+            "Information Gain": "+2: Questions about pain severity, medical history, and upcoming support were relevant.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person appears unconscious after falling down stairs.",
+        "Conversation Log": "AI: Hello? I've detected a fall. Are you able to respond?\nPerson: [No response]\nAI: If you can hear me, please say something or make a noise.\nPerson: [Faint groaning]\nAI: I hear you. Are you able to speak? Are you in pain?\nPerson: [Incoherent mumbling]\nAI: I'm concerned about your condition. I'll be calling emergency services right away. Please stay still if possible. Help is on the way.",
+        "Final Triage Decision": "AI: Calling emergency services immediately.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly recognized the emergency with minimal delay.",
+            "Information Gain": "+1: AI attempted to gather information but appropriately prioritized response when communication was limited.",
+            "Correctness": "+3: AI correctly escalated a serious situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person fell but responds normally.",
+        "Conversation Log": "AI: Hello there, I noticed you may have fallen. Are you alright?\nPerson: Oh goodness, yes, I just tripped over that darned rug again.\nAI: I'm glad you're responsive. Are you experiencing any pain or discomfort?\nPerson: Just my pride that's hurt! No, I'm fine really.\nAI: That's good to hear. Can you move around normally? Any dizziness?\nPerson: No dizziness. I can get up just fine. See? I'm standing now.\nAI: Excellent! And you're sure you didn't hit your head or injure yourself?\nPerson: Positive. I just need to be more careful with that rug. Maybe I should finally get rid of it!\nAI: That might not be a bad idea! I'm glad you're okay. No need for emergency services, but do be careful with that rug!",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly assessed the situation was non-serious.",
+            "Information Gain": "+2: Questions about pain, mobility, and head injury were appropriate and efficient.",
+            "Correctness": "+3: AI correctly identified a non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person is disoriented after falling.",
+        "Conversation Log": "AI: Hello? I noticed you may have fallen. Are you okay?\nPerson: What? Who's talking?\nAI: This is your home assistant. I noticed you fell. Can you tell me if you're hurt?\nPerson: I'm on the floor... I don't remember how I got here.\nAI: That's concerning. Can you tell me what day it is today?\nPerson: It's... I think it's Tuesday? Or Monday?\nAI: Are you feeling any pain anywhere?\nPerson: My head hurts. I feel dizzy.\nAI: Given your disorientation and head pain, I think we should call emergency services to check on you. Is that okay?\nPerson: Yes... I think so. I don't feel right.\nAI: I'm calling emergency services now. Stay where you are. Help will arrive soon.",
+        "Final Triage Decision": "AI: Calling emergency services now.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI recognized cognitive issues and escalated appropriately.",
+            "Information Gain": "+2: Questions about orientation, pain, and symptoms provided critical information.",
+            "Correctness": "+3: AI correctly escalated a case with disorientation and head injury.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person sat down suddenly but was detected as a fall.",
+        "Conversation Log": "AI: Hello there, I detected a sudden movement. Are you alright?\nPerson: What? Oh! Yes, I'm fine. I just sat down quickly because my show was starting.\nAI: I see! Sorry for the concern. So you just sat down quickly and there was no fall?\nPerson: That's right. Just plopped down on the sofa to watch my program. False alarm!\nAI: Thanks for clarifying. Enjoy your show! No need for any concern then.",
+        "Final Triage Decision": "AI: No emergency services needed. False alarm confirmed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined this was a false alarm.",
+            "Information Gain": "+1: Confirmed the nature of the movement efficiently.",
+            "Correctness": "+3: AI correctly identified this as a non-emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Elderly person fell in bathroom and is in severe pain.",
+        "Conversation Log": "AI: Hello? I detected a fall. Are you able to respond?\nPerson: Help... I fell in the bathroom.\nAI: I'm here to help. Are you in pain?\nPerson: Yes, terrible pain in my back. I can't move.\nAI: I understand. Did you hit your head at all?\nPerson: No, just my back when I slipped.\nAI: Are you bleeding anywhere?\nPerson: No bleeding, but I can't get up at all. The pain is too much.\nAI: Given your severe pain and inability to move, I'm going to call emergency services for you right away. Try to stay still and comfortable if possible.\nPerson: Thank you, please hurry.\nAI: I'm calling them now. Stay on the line with me until help arrives.",
+        "Final Triage Decision": "AI: Calling emergency services immediately.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+1: AI made appropriate assessment after gathering key information.",
+            "Information Gain": "+2: Questions about head injury, bleeding, and mobility were targeted and useful.",
+            "Correctness": "+3: AI correctly escalated a serious situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    },
+    {
+        "Situation Context": "Person slipped but caught themselves on furniture.",
+        "Conversation Log": "AI: Hello there, I noticed a sudden movement. Are you okay?\nPerson: Oh! Yes, I just slipped a bit but caught myself on the table. Gave myself a bit of a scare!\nAI: I'm glad you caught yourself. Did you strain or hurt anything when you slipped?\nPerson: No, I don't think so. Just a little startled is all.\nAI: That's good to hear. Are you feeling steady on your feet now?\nPerson: Yes, I'm fine now. These new socks are a bit slippery on the hardwood!\nAI: Those slippery socks can be tricky! Since you're feeling fine and didn't hurt yourself, there's no need for emergency services. Maybe consider some grippy slippers instead?\nPerson: Haha, good idea! I'll be more careful.",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly assessed the non-emergency nature.",
+            "Information Gain": "+2: Questions about injuries and stability were appropriate.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell and initially responds but then becomes unresponsive.",
+        "Conversation Log": "AI: Hello? I noticed you may have fallen. Are you alright?\nPerson: I fell... not feeling good...\nAI: Can you tell me where you're hurt?\nPerson: My chest... feels tight. Hard to breathe...\nAI: That sounds serious. Are you having any pain in your left arm or jaw?\nPerson: Yes... arm hurts too... feeling very...\nAI: Hello? Are you still there?\nPerson: [No response]\nAI: If you can hear me, please respond. I'm calling emergency services right now. Help is on the way. Please stay with me if you can hear me.",
+        "Final Triage Decision": "AI: Calling emergency services immediately.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly escalated when symptoms suggested cardiac event.",
+            "Information Gain": "+2: Questions about specific cardiac symptoms were targeted and critical.",
+            "Correctness": "+3: AI correctly identified a life-threatening emergency.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 7
+        }
+    },
+    {
+        "Situation Context": "Person fell while exercising but is embarrassed about it.",
+        "Conversation Log": "AI: Hello there, I detected a fall. Are you okay?\nPerson: Oh for heaven's sake, yes I'm fine. I was just trying that new exercise video.\nAI: I understand. Exercise can sometimes lead to unexpected movements. Are you experiencing any pain?\nPerson: No, no. Just embarrassed that my attempt at yoga set off the alarm. These old bones aren't as flexible as they used to be!\nAI: No need to be embarrassed! Better safe than sorry. Are you able to move normally?\nPerson: Yes, I'm up and about. Just going to stick to the beginner videos from now on!\nAI: That sounds like a wise choice! I'm glad you're not hurt. No need for emergency services, but do be careful with those challenging poses.\nPerson: Will do. Thanks for checking on me.\nAI: Anytime! That's what I'm here for.",
+        "Final Triage Decision": "AI: No emergency services needed.",
+        "Trajectory Efficiency Score": {
+            "Decision Speed": "+2: AI quickly determined this was a non-emergency.",
+            "Information Gain": "+1: Basic questions confirmed person was uninjured.",
+            "Correctness": "+3: AI correctly identified a non-emergency situation.",
+            "False Positives/Negatives": "0: No mistakes.",
+            "Total Score": 6
+        }
+    }
+]
