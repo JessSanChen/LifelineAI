@@ -10,16 +10,26 @@ app = Flask(__name__)
 sock = Sock(app)
 
 
+@sock.route('/frame_update')
+def frame_update(ws):
+    while True:
+        time.sleep(5)
+        ws.send(30)
+        time.sleep(5)
+        ws.send(5)
+        return
+
+
 @sock.route('/video_feed')
-def ws_endpoint(ws):
+def video_feed(ws):
     """
     This route upgrades HTTP to a WebSocket connection at /ws.
     We'll continuously read frames from the camera, encode them,
     and send them to the connected client as base64 strings.
     """
-    camera_idx = 1
-    if platform.system() == "Linux":
-        camera_idx = 0
+    camera_idx = 0
+    if platform.system() == "Darwin":
+        camera_idx = 1
 
     cap = cv2.VideoCapture(camera_idx)  # Open the default camera
     if not cap.isOpened():
