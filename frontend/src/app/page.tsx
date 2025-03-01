@@ -12,24 +12,6 @@ import Dashboard from '../../components/Dashboard';
 
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Open a WebSocket connection to the Python server
-    const ws = new WebSocket("ws://localhost:5001/video_feed");
-
-    // Listen for incoming messages (base64-encoded JPEGs)
-    ws.onmessage = (event: MessageEvent) => {
-      // Construct a data URL for the JPEG image
-      setImageSrc(`data:image/jpeg;base64,${event.data}`);
-    };
-
-    // Cleanup on unmount
-    return () => {
-      ws.close();
-    };
-  }, []);
-
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
