@@ -30,7 +30,7 @@ class TriageResponse(BaseModel):
     false_positives_negatives: int
     total_reward: int
     response_text: str
-    action: str  # One of: "CONTINUE", "ALERT_MEDICAL", "LOW_SEVERITY", "NOT_FALL"
+    exit_conversation: bool  # 🚀 AI now determines whether to exit
 
 # Function to call Claude API with structured response
 def call_claude(conversation_history):
@@ -61,13 +61,13 @@ def call_claude(conversation_history):
             false_positives_negatives=0,
             total_reward=0,
             response_text="I'm having trouble processing right now.",
-            action="CONTINUE"
+            exit_conversation=False
         )
 
 # Function to handle waiting for a response, then transitioning if needed
-def get_user_input_or_timeout(timeout=6):
+def get_user_input_or_timeout(timeout=15):
     """Passively waits for user input for 'timeout' seconds. If no input, returns None."""
-    print("\n(Waiting for response... 6 seconds before timeout)")
+    print("\n(Waiting for response... 15 seconds before timeout)")
 
     ready, _, _ = select.select([sys.stdin], [], [], timeout)
     
@@ -80,7 +80,7 @@ def triaging_agent():
     """Handles back-and-forth triaging until a clear decision is made."""
     conversation_history = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": "A possible fall has been detected. Are you okay?"}  # ✅ Ensures we have an initial message
+        {"role": "user", "content": "A possible fall has been detected. Are you okay?"}  
     ]
 
     print("\nFall detected. Initiating triage...\n")
@@ -99,15 +99,9 @@ def triaging_agent():
         # Add Claude's response to conversation history
         conversation_history.append({"role": "assistant", "content": response.response_text})
 
-        # **Check if we need to exit the loop**
-        if response.action == "ALERT_MEDICAL":
-            print("\nClaude: Emergency services are being alerted now. Stay with me.")
-            break
-        elif response.action == "LOW_SEVERITY":
-            print("\nClaude: This doesn’t seem serious, but take it slow. Let me know if you need anything else.")
-            break
-        elif response.action == "NOT_FALL":
-            print("\nClaude: It looks like this wasn’t a fall after all. Glad you’re okay!")
+        # **Exit automatically if the AI determines it should**
+        if response.exit_conversation:
+            print("\nClaude: Triage complete. Ending session.")
             break
 
         # Get user response (or timeout)
