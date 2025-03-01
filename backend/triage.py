@@ -7,8 +7,8 @@ import json
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import instructor
-from flask import Flask
-from flask_sock import Sock
+import requests
+from main import text_to_speech
 
 # Load environment variables
 load_dotenv()
@@ -21,12 +21,11 @@ if not ANTHROPIC_API_KEY:
 client = instructor.from_anthropic(anthropic.Anthropic(api_key=ANTHROPIC_API_KEY))
 
 # Read the system prompt from file
-with open("prime_triage_prompt.txt", "r") as file:
+with open("prime_triage_prompt.txt", "r", encoding="utf8") as file:
     SYSTEM_PROMPT = file.read()
 
-# Flask app & WebSocket setup
-app = Flask(__name__)
-sock = Sock(app)
+# Flask API base URL
+FLASK_API_BASE_URL = "http://localhost:5001"
 
 # Define Structured Response Model
 class TriageResponse(BaseModel):
@@ -117,6 +116,17 @@ def call_claude(conversation_history):
             response_text="I'm having trouble processing right now.",
             exit_conversation=False
         )
+    
+
+def speech_to_text():
+    """Opens the microphone and listens for speech."""
+    try:
+        resp = requests.get(f"{FLASK_API_BASE_URL}/speech_to_text")
+        ret = resp.json().get("text")
+        return ret
+    except requests.exceptions.RequestException as e:
+        print(f"Error in speech-to-text: {e}")
+
 
 # Function to handle waiting for a response, then transitioning if needed
 def get_user_input_or_timeout(timeout=6):
@@ -125,10 +135,51 @@ def get_user_input_or_timeout(timeout=6):
 
     ready, _, _ = select.select([sys.stdin], [], [], timeout)
     
-    if ready:
-        return sys.stdin.readline().strip()  # Read input if available
-    return None  # No input received within timeout
+    # TODO: add timeout
 
-# Run Flask App
+    return speech_to_text()  # Read input if available
+    # return None  # No input received within timeout
+
+# Main Triage Loop
+def triaging_agent():
+    """Handles back-and-forth triaging until a clear decision is made."""
+    conversation_history = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": "A possible fall has been detected. Are you okay?"}  
+    ]
+
+    print("\nFall detected. Initiating triage...\n")
+
+    while True:
+        # Call Claude with the conversation history
+        response = call_claude(conversation_history)
+
+        # Print debug information
+        print(f"\nDEBUG - Reasoning: {response.reasoning}")
+        print(f"DEBUG - Rewards: Decision Speed: {response.decision_speed}, Information Gain: {response.information_gain}, Correctness: {response.correctness}, False Positives/Negatives: {response.false_positives_negatives}, Total Reward: {response.total_reward}")
+
+        # Print Claude's response
+        print(f"\nClaude: {response.response_text}")
+        text_to_speech(response.response_text)
+
+        # Add Claude's response to conversation history
+        conversation_history.append({"role": "assistant", "content": response.response_text})
+
+        # **Exit automatically if the AI determines it should**
+        if response.exit_conversation:
+            print("\nClaude: Triage complete. Ending session.")
+            break
+
+        # Get user response (or timeout)
+        user_input = get_user_input_or_timeout()
+
+        if user_input is None:
+            print("\nNo response detected. Checking again...")
+            conversation_history.append({"role": "user", "content": "(No response detected)"})
+        else:
+            # Add user input to conversation history
+            conversation_history.append({"role": "user", "content": user_input})
+
+# Run Agent
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5002, debug=True)

@@ -87,6 +87,7 @@ def speech_to_text():
         try:
             audio = recognizer.listen(source, timeout=5)
             text = recognizer.recognize_google(audio)
+            print(text)
             return jsonify({"text": text})
         except sr.UnknownValueError:
             return jsonify({"text": "Could not understand the audio."})
