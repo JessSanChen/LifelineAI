@@ -9,6 +9,8 @@ from pydantic import BaseModel
 import instructor
 import requests
 from main import text_to_speech
+from flask import Flask
+from flask_sock import Sock
 
 # Load environment variables
 load_dotenv()
@@ -23,6 +25,10 @@ client = instructor.from_anthropic(anthropic.Anthropic(api_key=ANTHROPIC_API_KEY
 # Read the system prompt from file
 with open("prime_triage_prompt.txt", "r", encoding="utf8") as file:
     SYSTEM_PROMPT = file.read()
+
+# Flask app & WebSocket setup
+app = Flask(__name__)
+sock = Sock(app)
 
 # Flask API base URL
 FLASK_API_BASE_URL = "http://localhost:5001"
@@ -132,8 +138,6 @@ def speech_to_text():
 def get_user_input_or_timeout(timeout=6):
     """Passively waits for user input for 'timeout' seconds. If no input, returns None."""
     print("\n(Waiting for response... 6 seconds before timeout)")
-
-    ready, _, _ = select.select([sys.stdin], [], [], timeout)
     
     # TODO: add timeout
 
@@ -182,4 +186,4 @@ def triaging_agent():
 
 # Run Agent
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    triaging_agent()
