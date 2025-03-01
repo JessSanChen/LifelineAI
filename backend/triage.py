@@ -6,6 +6,8 @@ import select
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import instructor
+import requests
+from main import text_to_speech
 
 # Load environment variables from .env
 load_dotenv()
@@ -20,6 +22,9 @@ client = instructor.from_anthropic(anthropic.Anthropic(api_key=ANTHROPIC_API_KEY
 # Read the system prompt from file
 with open("prime_triage_prompt.txt", "r", encoding="utf8") as file:
     SYSTEM_PROMPT = file.read()
+
+# Flask API base URL
+FLASK_API_BASE_URL = "http://localhost:5001"
 
 # Define Structured Response Model
 class TriageResponse(BaseModel):
@@ -63,17 +68,27 @@ def call_claude(conversation_history):
             response_text="I'm having trouble processing right now.",
             exit_conversation=False
         )
+    
+
+def speech_to_text():
+    """Opens the microphone and listens for speech."""
+    try:
+        resp = requests.get(f"{FLASK_API_BASE_URL}/speech_to_text")
+        ret = resp.json().get("text")
+        return ret
+    except requests.exceptions.RequestException as e:
+        print(f"Error in speech-to-text: {e}")
+
 
 # Function to handle waiting for a response, then transitioning if needed
 def get_user_input_or_timeout(timeout=15):
     """Passively waits for user input for 'timeout' seconds. If no input, returns None."""
     print("\n(Waiting for response... 15 seconds before timeout)")
-
-    ready, _, _ = select.select([sys.stdin], [], [], timeout)
     
-    if ready:
-        return sys.stdin.readline().strip()  # Read input if available
-    return None  # No input received within timeout
+    # TODO: add timeout
+
+    return speech_to_text()  # Read input if available
+    # return None  # No input received within timeout
 
 # Main Triage Loop
 def triaging_agent():
@@ -95,6 +110,7 @@ def triaging_agent():
 
         # Print Claude's response
         print(f"\nClaude: {response.response_text}")
+        text_to_speech(response.response_text)
 
         # Add Claude's response to conversation history
         conversation_history.append({"role": "assistant", "content": response.response_text})
