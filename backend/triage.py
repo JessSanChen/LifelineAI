@@ -1,12 +1,9 @@
 import anthropic
 import os
+import sys
 import time
-import threading
-import queue
-import requests
-import websocket
+import select
 from dotenv import load_dotenv
-from enum import Enum
 from pydantic import BaseModel
 import instructor
 
@@ -21,47 +18,34 @@ if not ANTHROPIC_API_KEY:
 client = instructor.from_anthropic(anthropic.Anthropic(api_key=ANTHROPIC_API_KEY))
 
 # Read the system prompt from file
-with open("triage_prompt.txt", "r") as file:
+with open("prime_triage_prompt.txt", "r") as file:
     SYSTEM_PROMPT = file.read()
 
-# Flask API base URL
-FLASK_API_BASE_URL = "http://localhost:5001"
-
-# Define States as Enum
-class TriagingState(Enum):
-    INIT_FALL_DETECTED = "INIT_FALL_DETECTED"
-    RESPONSIVE = "RESPONSIVE"
-    NON_RESPONSIVE = "NON_RESPONSIVE"
-    NOT_FALL = "NOT_FALL"
-    CONFIRMED_HURT = "CONFIRMED_HURT"
-    LOW_SEVERITY = "LOW_SEVERITY"
-    HIGH_SEVERITY = "HIGH_SEVERITY"
-    AWAITING_CONFIRMATION = "AWAITING_CONFIRMATION"
-    ALERT_MEDICAL = "ALERT_MEDICAL"
-
-# Define Structured Response Model with PRIME scoring
+# Define Structured Response Model
 class TriageResponse(BaseModel):
+    reasoning: str
+    decision_speed: int
+    information_gain: int
+    correctness: int
+    false_positives_negatives: int
+    total_reward: int
     response_text: str
-    next_state: TriagingState
-    trajectory_score: float  # PRIME assigns this to optimize inference
+    action: str  # One of: "CONTINUE", "ALERT_MEDICAL", "LOW_SEVERITY", "NOT_FALL"
 
-# Function to call Claude API with structured response & PRIME reward
-def call_claude(state, user_input=None, past_rewards=[]):
-    user_prompt = user_input if user_input else "What should happen next?"
-
-    # Constructing reward model feedback for PRIME
-    reward_feedback = (
-        f"Prior rewards for triage optimization: {past_rewards}. "
-        "Your response should prioritize fast, accurate decision-making."
-    )
+# Function to call Claude API with structured response
+def call_claude(conversation_history):
+    """Send conversation history to Claude and get a structured response."""
+    if len(conversation_history) < 2:
+        print("\nDEBUG - Not enough messages, adding initial user message.\n")
+        conversation_history.append({"role": "user", "content": "A possible fall has been detected. Are you okay?"})
 
     try:
         response = client.chat.completions.create(
             model="claude-3-5-sonnet-20241022",
-            max_tokens=150,
+            max_tokens=300,
             temperature=0.5,
-            system=f"{SYSTEM_PROMPT}\n\n{reward_feedback}",
-            messages=[{"role": "user", "content": user_prompt}],
+            system=SYSTEM_PROMPT,
+            messages=conversation_history,
             response_model=TriageResponse
         )
 
@@ -70,174 +54,72 @@ def call_claude(state, user_input=None, past_rewards=[]):
     except Exception as e:
         print(f"Claude API Error: {e}")
         return TriageResponse(
-            response_text="I'm having trouble processing right now.", 
-            next_state=state, 
-            trajectory_score=0.0
+            reasoning="Error processing response.",
+            decision_speed=0,
+            information_gain=0,
+            correctness=0,
+            false_positives_negatives=0,
+            total_reward=0,
+            response_text="I'm having trouble processing right now.",
+            action="CONTINUE"
         )
 
-# Function to send text response to TTS API
-def speak_text(text):
-    """Send Claude's response to Flask TTS API for speech output."""
-    try:
-        requests.get(f"{FLASK_API_BASE_URL}/text_to_speech", params={"text": text})
-    except requests.exceptions.RequestException as e:
-        print(f"Error in text-to-speech: {e}")
+# Function to handle waiting for a response, then transitioning if needed
+def get_user_input_or_timeout(timeout=6):
+    """Passively waits for user input for 'timeout' seconds. If no input, returns None."""
+    print("\n(Waiting for response... 6 seconds before timeout)")
 
-import websocket
-import ssl
-import queue
-import time
-import threading
-
-def get_speech_input(timeout=6):
-    """Listens for speech input via WebSocket with a passive timeout."""
-    def listen_speech(ws):
-        """Receives speech-to-text input from WebSocket."""
-        while True:
-            try:
-                message = ws.recv()
-                if message and message not in {"Listening...", "Listening timed out.", "Could not understand the audio."}:
-                    speech_queue.put(message)
-                    break  # Stop listening once valid input is received
-            except websocket.WebSocketConnectionClosedException:
-                break
-
-    speech_queue = queue.Queue()
-
-    # ✅ FIX: Remove 'Sec-WebSocket-Extensions' header to prevent 'rsv is not implemented' error
-    ws = websocket.WebSocket()
+    ready, _, _ = select.select([sys.stdin], [], [], timeout)
     
-    try:
-        ws.connect(
-            "ws://localhost:5001/speech_to_text",
-            header=["Sec-WebSocket-Extensions: "],  # ✅ Overrides and removes compression header
-            skip_utf8_validation=True
-        )
+    if ready:
+        return sys.stdin.readline().strip()  # Read input if available
+    return None  # No input received within timeout
 
-        listen_thread = threading.Thread(target=listen_speech, args=(ws,))
-        listen_thread.daemon = True
-        listen_thread.start()
-
-        start_time = time.time()
-        while time.time() - start_time < timeout:
-            if not speech_queue.empty():
-                return speech_queue.get()  # ✅ Return recognized speech immediately
-            time.sleep(0.1)
-
-    except websocket.WebSocketProtocolException:
-        print("WebSocket error: Removing Sec-WebSocket-Extensions resolved issue.")
-    except Exception as e:
-        print(f"Speech recognition error: {e}")
-    
-    finally:
-        ws.close()  # ✅ Always close WebSocket after use
-
-    return None  # Return None if timeout occurs
-
-# Function to capture speech input using WebSocket
-# def get_speech_input(timeout=6):
-#     """Listens for speech input with a passive timeout."""
-#     def listen_speech(ws):
-#         """Receives speech-to-text input from WebSocket."""
-#         while True:
-#             message = ws.recv()
-#             if message and message not in {"Listening...", "Listening timed out.", "Could not understand the audio."}:
-#                 speech_queue.put(message)
-#                 ws.close()
-#                 break
-
-#     speech_queue = queue.Queue()
-#     ws = websocket.WebSocket()
-    
-#     try:
-#         ws.connect(f"ws://localhost:5001/speech_to_text")
-#         listen_thread = threading.Thread(target=listen_speech, args=(ws,))
-#         listen_thread.daemon = True
-#         listen_thread.start()
-
-#         start_time = time.time()
-#         while time.time() - start_time < timeout:
-#             if not speech_queue.empty():
-#                 return speech_queue.get()
-#             time.sleep(0.1)  # Non-blocking sleep
-
-#     except Exception as e:
-#         print(f"Speech recognition error: {e}")
-
-#     return None  # Return None if timeout occurs
-
-# Main State Machine Loop with Speech Integration
-def triaging_state_machine():
-    state = TriagingState.INIT_FALL_DETECTED
-    past_rewards = []  # Store PRIME reward scores for learning optimization
+# Main Triage Loop
+def triaging_agent():
+    """Handles back-and-forth triaging until a clear decision is made."""
+    conversation_history = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": "A possible fall has been detected. Are you okay?"}  # ✅ Ensures we have an initial message
+    ]
 
     print("\nFall detected. Initiating triage...\n")
 
-    # First call to Claude (before user input)
-    response = call_claude(state, past_rewards=past_rewards)
-    speak_text(response.response_text)  # Speak Claude's response
-    state = response.next_state  # Update state immediately
-    past_rewards.append(response.trajectory_score)
+    while True:
+        # Call Claude with the conversation history
+        response = call_claude(conversation_history)
 
-    # Start loop for user interaction
-    while state not in {TriagingState.ALERT_MEDICAL, TriagingState.NOT_FALL, TriagingState.LOW_SEVERITY}:
-        print(f"\nCurrent State: {state.value}")  # Debugging: Show Current State
+        # Print debug information
+        print(f"\nDEBUG - Reasoning: {response.reasoning}")
+        print(f"DEBUG - Rewards: Decision Speed: {response.decision_speed}, Information Gain: {response.information_gain}, Correctness: {response.correctness}, False Positives/Negatives: {response.false_positives_negatives}, Total Reward: {response.total_reward}")
 
-        # Wait for speech input (or timeout after 6 seconds)
-        user_input = get_speech_input()
+        # Print Claude's response
+        print(f"\nClaude: {response.response_text}")
+
+        # Add Claude's response to conversation history
+        conversation_history.append({"role": "assistant", "content": response.response_text})
+
+        # **Check if we need to exit the loop**
+        if response.action == "ALERT_MEDICAL":
+            print("\nClaude: Emergency services are being alerted now. Stay with me.")
+            break
+        elif response.action == "LOW_SEVERITY":
+            print("\nClaude: This doesn’t seem serious, but take it slow. Let me know if you need anything else.")
+            break
+        elif response.action == "NOT_FALL":
+            print("\nClaude: It looks like this wasn’t a fall after all. Glad you’re okay!")
+            break
+
+        # Get user response (or timeout)
+        user_input = get_user_input_or_timeout()
 
         if user_input is None:
             print("\nNo response detected. Checking again...")
-            if state not in {TriagingState.NON_RESPONSIVE, TriagingState.ALERT_MEDICAL}:  # Avoid looping endlessly
-                state = TriagingState.NON_RESPONSIVE
-                response = call_claude(state, past_rewards=past_rewards)
-                speak_text(response.response_text)  # Speak non-responsive prompt
-                user_input = get_speech_input()  # One more chance to respond
-                if user_input is None:
-                    print("\nStill no response. Escalating to emergency services.")
-                    state = TriagingState.ALERT_MEDICAL
-                    break
-
-        # Process user's response and determine next state dynamically
-        response = call_claude(state, user_input, past_rewards=past_rewards)
-        
-        # Debugging: Show response & next state
-        print(f"\nDEBUG - Next State from Claude: {response.next_state} (Score: {response.trajectory_score})")
-
-        # Speak Claude's response
-        speak_text(response.response_text)
-
-        # Store trajectory rewards for PRIME optimization
-        past_rewards.append(response.trajectory_score)
-
-        # Handle HIGH_SEVERITY with verbal confirmation
-        if response.next_state == TriagingState.HIGH_SEVERITY:
-            speak_text("This sounds serious. Should I call emergency services?")
-            state = TriagingState.AWAITING_CONFIRMATION
-            user_input = get_speech_input()
-
-            if user_input and user_input.lower() in {"yes", "call", "help"}:
-                speak_text("Understood. Contacting emergency services now.")
-                state = TriagingState.ALERT_MEDICAL
-                break
-            else:
-                speak_text("Okay, I will stay with you. Let me know if your condition worsens.")
-                state = TriagingState.LOW_SEVERITY
-
-        # Ensure state actually updates
-        elif response.next_state in TriagingState:
-            state = response.next_state
+            conversation_history.append({"role": "user", "content": "(No response detected)"})
         else:
-            print("Invalid state returned, staying in current state.")
+            # Add user input to conversation history
+            conversation_history.append({"role": "user", "content": user_input})
 
-    # Exit message based on final state
-    if state == TriagingState.ALERT_MEDICAL:
-        speak_text("Emergency services are being alerted now. Stay with me.")
-    elif state == TriagingState.NOT_FALL:
-        speak_text("It looks like this wasn't a fall after all. Glad you're okay!")
-    elif state == TriagingState.LOW_SEVERITY:
-        speak_text("This doesn't seem serious, but take it slow. Let me know if you need anything else.")
-
-# Run State Machine
+# Run Agent
 if __name__ == "__main__":
-    triaging_state_machine()
+    triaging_agent()
