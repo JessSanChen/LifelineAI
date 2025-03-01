@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import VideoStream from "./VideoStream"; // Import the new video component
-
 
 const VideoCard = styled(Card)(({ theme }) => ({
   flex: 3, // Larger space
@@ -39,15 +38,52 @@ const ChatBox = styled(Paper)(({ theme }) => ({
   boxShadow: theme.shadows[3],
 }));
 
-const ChatMessages = styled(Box)(({ theme }) => ({
+const ChatMessagesContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: theme.spacing(2),
+  height: "100%",
+}));
+
+const AIChatMessages = styled(Box)(({ theme }) => ({
   flex: 1,
   overflowY: "auto",
   backgroundColor: theme.palette.background.default,
   padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
+  border: "1px solid " + theme.palette.divider,
+}));
+
+const UserChatMessages = styled(Box)(({ theme }) => ({
+  flex: 1,
+  overflowY: "auto",
+  backgroundColor: theme.palette.background.default,
+  padding: theme.spacing(2),
+  borderRadius: theme.shape.borderRadius,
+  border: "1px solid " + theme.palette.divider,
 }));
 
 export default function Dashboard() {
+  const [aiMessages, setAiMessages] = useState<string[]>([]);
+  const [userMessages, setUserMessages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:5002/triage");
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.speaker === "ai") {
+        setAiMessages((prev) => [...prev, data.message]);
+      } else if (data.speaker === "user") {
+        setUserMessages((prev) => [...prev, data.message]);
+      }
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
   return (
     <Container id="triage" sx={{ py: { xs: 4, sm: 8 }, height: "100vh" }}>
       <Box
@@ -76,10 +112,25 @@ export default function Dashboard() {
           <Typography variant="h6" gutterBottom>
             Chatbox
           </Typography>
-          <ChatMessages>
-            <Typography variant="body2">Person: Hello?</Typography>
-            <Typography variant="body2">Agent: How are you feeling?</Typography>
-          </ChatMessages>
+          <ChatMessagesContainer>
+            <AIChatMessages>
+              <Typography variant="h6">AI Agent</Typography>
+              {aiMessages.map((msg, index) => (
+                <Typography key={index} variant="body2">
+                  {msg}
+                </Typography>
+              ))}
+            </AIChatMessages>
+
+            <UserChatMessages>
+              <Typography variant="h6">Patient</Typography>
+              {userMessages.map((msg, index) => (
+                <Typography key={index} variant="body2">
+                  {msg}
+                </Typography>
+              ))}
+            </UserChatMessages>
+          </ChatMessagesContainer>
         </ChatBox>
       </Box>
     </Container>
