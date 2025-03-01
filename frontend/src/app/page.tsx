@@ -6,9 +6,9 @@ import React, { useEffect, useState } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import AppTheme from '../../theme/AppTheme';
-// import AppAppBar from './components/AppAppBar';
 import Hero from '../../components/Hero';
-// import Features from './components/Features';
+import AppAppBar from '../../components/AppAppBar';
+import Dashboard from '../../components/Dashboard';
 
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
@@ -34,24 +34,13 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
     <AppTheme {...props}>
     <CssBaseline enableColorScheme />
 
-    {/* <AppAppBar /> */}
+    <AppAppBar />
     <Hero />
     <div>
-      {/* <Features /> */}
+      <Dashboard />
       {/* <Divider /> */}
     </div>
-    <div style={{ textAlign: "center", marginTop: "2rem" }}>
-      <h1>Live Camera Stream</h1>
-      {imageSrc ? (
-        <img
-          src={imageSrc}
-          alt="Camera Stream"
-          style={{ border: "2px solid #000", maxWidth: "100%" }}
-        />
-      ) : (
-        <p>Waiting for camera stream...</p>
-      )}
-    </div>
+
   </AppTheme>
     
   );
