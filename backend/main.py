@@ -1,6 +1,7 @@
 import time
 import cv2
 import base64
+import platform
 
 from flask import Flask
 from flask_sock import Sock
@@ -16,7 +17,11 @@ def ws_endpoint(ws):
     We'll continuously read frames from the camera, encode them,
     and send them to the connected client as base64 strings.
     """
-    cap = cv2.VideoCapture(1)  # Open the default camera
+    camera_idx = 1
+    if platform.system() == "Linux":
+        camera_idx = 0
+
+    cap = cv2.VideoCapture(camera_idx)  # Open the default camera
     if not cap.isOpened():
         print("Could not open camera.")
         return
