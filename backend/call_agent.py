@@ -1,5 +1,6 @@
 import os
 
+import anthropic
 from dotenv import load_dotenv
 from openai import OpenAI
 from twilio.rest import Client
@@ -10,47 +11,39 @@ account_sid = os.environ["TWILIO_ACCOUNT_SID"]
 auth_token = os.environ["TWILIO_AUTH_TOKEN"]
 twilio = Client(account_sid, auth_token)
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-openai = OpenAI(
-    api_key=OPENAI_API_KEY,
-)
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
 
 generate_call_prompt = """
-You are an agent at a disaster response organization. You have been given information about a
-disaster that is ongoing in a specific location, and a list of tweets about concerns people have
-that live in the region. You need to call the authorities in that area to inform them of the disaster,
-and give them enough info to start a response. Succinctly and concisely summarize the information
-in the tweets, and give them a brief description of the disaster and where it is taking place.
-Pretend you are talking to them directly on the phone, and only print the text you would say.
-Do not include any information not provided below. Identify yourself as an agent for a disaster relief
-agency and let the agent know that your organization will keep citizens updated on aid efforts.
+You are LifelineAI, an AI assistant that monitors footage of people at-risk of falling.
+Someone you have been watching has fallen and you need to call for help.
+You have briefly assessed the situation and determined you need to contact authorities.
 
-Disaster: {disaster_name}
-Location: {location}
-Description: {description}
+Please generate a call message to send to the emergency services, very briefly summarizing
+the conversation you had with the person who fell. Pretend you are talking to them directly
+on the phone, and only print the text you would say.
 
-```tweets
-{tweets}
+The address you are monitoring is 55 2nd St, San Francisco, CA
+
+```conversation
+{history}
 ```
 """
 
 
-def generate_call_message(disaster_info, tweets):
-    disaster_name = disaster_info["disaster_name"]
-    location = disaster_info["location"]
-    description = disaster_info["description"]
-
-    response = openai.chat.completions.create(
-        model="gpt-4o-mini",
+def generate_call_message(conversation_history):
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=2048,
         messages=[
-            {"role": "user", "content": generate_call_prompt.format(
-                disaster_name=disaster_name, location=location, description=description,
-                tweets='\n\n'.join([f"Tweet: {tweet.content}\nLocation: {tweet.location}" for tweet in tweets]))},
-        ],
+            {"role": "user",
+             "content": generate_call_prompt.format(
+                 history=conversation_history)}
+        ]
     )
 
-    return response.choices[0].message.content
+    return message.content[0].text
 
 
 def make_call(message):
@@ -64,10 +57,8 @@ def make_call(message):
 
 
 if __name__ == '__main__':
-    current_disasters = identify_disasters("./tweets.json")
-    disaster_response = generate_disaster_response(current_disasters)
-    for disaster in disaster_response:
-        tweets = current_disasters[disaster["disaster_name"]]
-        message = generate_call_message(disaster, tweets)
-        print(message)
-    # make_call(message)
+
+    message = generate_call_message("My tummy hurty")
+    print(message)
+
+    make_call(message)

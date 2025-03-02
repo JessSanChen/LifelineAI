@@ -1,4 +1,3 @@
-import json
 import os
 
 import anthropic
@@ -7,6 +6,7 @@ import pyttsx3
 import speech_recognition as sr
 from dotenv import load_dotenv
 from pydantic import BaseModel
+from call_agent import generate_call_message, make_call
 
 # Load environment variables
 load_dotenv()
@@ -132,6 +132,12 @@ def triaging_agent(message_q):
 
         # **Exit automatically if the AI determines it should**
         if response.exit_conversation:
+            if response.final_decision == "alert_emergency":
+                print("Claude: Contacting emergency services...")
+                context = str(conversation_history)
+                message = generate_call_message(context)
+                make_call(message)
+
             print("\nClaude: Triage complete. Ending session.")
             break
 
