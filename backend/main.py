@@ -41,7 +41,7 @@ def fall_detected(ws):
         if fall_detected is None:
             break
 
-        ws.send({"fall_detected": True})
+        ws.send({"fall_detected": "FALL DETECTED"})
 
 
 @sock.route("/triage")
