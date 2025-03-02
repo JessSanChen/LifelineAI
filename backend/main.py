@@ -41,6 +41,16 @@ def fall_detected(ws):
         ws.send({"fall_detected": True})
 
 
+@sock.route("/triage")
+def triage_messages(ws):
+    while True:
+        triage_message = triage_message_queue.get()
+        if triage_message is None:
+            break
+
+        ws.send(json.dumps(triage_message))
+
+
 def external_processing_thread(frames_queue, response_queue, external_ws):
     """
     Runs on a separate thread:
@@ -210,16 +220,6 @@ def video_feed(ws):
         frames_queue.put(None)
         processing_thread.join(timeout=5)
         print("Camera and external processing thread closed.")
-
-
-@sock.route("/triage")
-def triage_messages(ws):
-    while True:
-        triage_message = triage_message_queue.get()
-        if triage_message is None:
-            break
-
-        ws.send(triage_message)
 
 
 if __name__ == "__main__":
