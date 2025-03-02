@@ -47,7 +47,7 @@ const PixelatedBlurImage = styled("img")({
 
   // Start invisible
   opacity: 0,
-  transition: "opacity 0.3s ease-in-out",
+  transition: "opacity 0.8s ease-in-out",
 
   pointerEvents: "none", // so it doesn’t capture clicks
 });
