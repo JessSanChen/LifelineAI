@@ -35,7 +35,7 @@ The address you are monitoring is 55 2nd St, San Francisco, CA
 def generate_call_message(conversation_history):
     message = client.messages.create(
         model="claude-3-5-sonnet-20241022",
-        max_tokens=2048,
+        max_tokens=500,
         messages=[
             {"role": "user",
              "content": generate_call_prompt.format(
