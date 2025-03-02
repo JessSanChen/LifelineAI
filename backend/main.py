@@ -14,18 +14,41 @@ from triage import triaging_agent
 app = Flask(__name__)
 sock = Sock(app)
 
-framerate = 15
+framerate = 2
 triage_message_queue = queue.Queue()
+fall_detected_queue = queue.Queue()
+frame_update_queue = queue.Queue()
 
 
 @sock.route('/frame_update')
 def frame_update(ws):
     while True:
-        time.sleep(5)
-        ws.send(30)
-        time.sleep(5)
-        ws.send(5)
-        return
+        frame_update = frame_update_queue.get()
+        print("FRAME UPDATE", frame_update)
+        if frame_update is None:
+            break
+
+        ws.send(frame_update)
+
+
+@sock.route('/fall_detected')
+def fall_detected(ws):
+    while True:
+        fall_detected = fall_detected_queue.get()
+        if fall_detected is None:
+            break
+
+        ws.send({"fall_detected": True})
+
+
+@sock.route("/triage")
+def triage_messages(ws):
+    while True:
+        triage_message = triage_message_queue.get()
+        if triage_message is None:
+            break
+
+        ws.send(json.dumps(triage_message))
 
 
 def external_processing_thread(frames_queue, response_queue, external_ws):
@@ -115,6 +138,9 @@ def video_feed(ws):
     # For the first batch, let's assume we are ready right away.
     external_ready = True
 
+    global framerate
+    person_in_frame = False
+
     try:
         while True:
             ret, frame = cap.read()
@@ -143,7 +169,8 @@ def video_feed(ws):
 
             # Check if some time has elapsed and the external thread is ready
             # if (time.time() - start_time >= 6) and external_ready:
-            if len(frames_buffer) >= framerate * 5 and external_ready:
+            buffer_length = framerate * 6 if person_in_frame else framerate * 2
+            if len(frames_buffer) >= buffer_length and external_ready:
                 # Send the accumulated frames to the external thread
                 frames_queue.put(frames_buffer)
                 # print(f"[Main Thread] Queued {len(frames_buffer)} frames for processing.")
@@ -162,8 +189,19 @@ def video_feed(ws):
                 # You can do something with the response here if needed
                 if response is not None:
                     print(f"[Main Thread] Server response: {response}")
-                    if response["person"] == True:
+                    if response["fall"] == True:
                         triaging_agent(triage_message_queue)
+
+                    # Adaptively adjust framerate and rate of inference based on if someone is in the frame.
+                    if response["person"] == True and not person_in_frame:
+                        framerate = 20
+                        person_in_frame = True
+                        frame_update_queue.put(framerate)
+                    elif not response["person"] and person_in_frame:
+                        framerate = 2
+                        person_in_frame = False
+                        frame_update_queue.put(framerate)
+
                 # Mark the external as ready for next batch
                 external_ready = True
             except queue.Empty:
@@ -182,16 +220,6 @@ def video_feed(ws):
         frames_queue.put(None)
         processing_thread.join(timeout=5)
         print("Camera and external processing thread closed.")
-
-
-@sock.route("/triage")
-def triage_messages(ws):
-    while True:
-        triage_message = triage_message_queue.get()
-        if triage_message is None:
-            break
-
-        ws.send(triage_message)
 
 
 if __name__ == "__main__":
