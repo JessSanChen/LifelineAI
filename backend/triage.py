@@ -43,9 +43,6 @@ def call_claude(conversation_history):
             {"role": "user", "content": "A possible fall has been detected. Are you okay?"})
 
     try:
-        formatted_history = json.dumps(conversation_history, indent=2)
-        print(formatted_history)
-
         response = client.chat.completions.create(
             model="claude-3-5-sonnet-20241022",
             max_tokens=300,
