@@ -33,6 +33,7 @@ class TriageResponse(BaseModel):
     total_reward: int
     response_text: str
     exit_conversation: bool
+    final_decision: str
 
 
 def call_claude(conversation_history):
