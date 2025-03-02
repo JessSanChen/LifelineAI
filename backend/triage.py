@@ -150,5 +150,7 @@ def triaging_agent(message_q):
 
 # Run Agent
 if __name__ == "__main__":
-    # triaging_agent()
-    pass
+    import queue
+    q = queue.Queue()
+
+    triaging_agent(q)
