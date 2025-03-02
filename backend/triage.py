@@ -65,7 +65,8 @@ def call_claude(conversation_history):
             false_positives_negatives=0,
             total_reward=0,
             response_text="I'm having trouble processing right now.",
-            exit_conversation=False
+            exit_conversation=False,
+            final_decision="unknown"
         )
 
 

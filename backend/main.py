@@ -193,6 +193,7 @@ def video_feed(ws):
                 if response is not None:
                     print(f"[Main Thread] Server response: {response}")
                     if response["fall"] == True or DEBUG:
+                        fall_detected_queue.put("FALL DETECTED")
                         triaging_agent(triage_message_queue)
 
                     # Adaptively adjust framerate and rate of inference based on if someone is in the frame.
