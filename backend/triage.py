@@ -122,7 +122,7 @@ def triaging_agent(message_q):
         # Print Claude's response
         print(f"\nClaude: {response.response_text}")
         text_to_speech(response.response_text)
-        message_q.put(response.response_text)
+        message_q.put({"speaker": "ai", "text": response.response_text})
 
         # Add Claude's response to conversation history
         conversation_history.append(
@@ -140,12 +140,13 @@ def triaging_agent(message_q):
             print("\nNo response detected. Checking again...")
             conversation_history.append(
                 {"role": "user", "content": "(No response detected)"})
-            message_q.put("(No response detected)")
+            message_q.put(
+                {"speaker": "user", "text": "(No response detected)"})
         else:
             # Add user input to conversation history
             conversation_history.append(
                 {"role": "user", "content": user_input["text"]})
-            message_q.put(user_input["text"])
+            message_q.put({"speaker": "user", "text": user_input["text"]})
 
 
 # Run Agent
