@@ -148,7 +148,7 @@ def triaging_agent(message_q):
             # Add user input to conversation history
             conversation_history.append(
                 {"role": "user", "content": user_input["text"]})
-            message_q.put(user_input)
+            message_q.put(user_input["text"])
 
 
 # Run Agent
