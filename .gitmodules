@@ -1,0 +1,3 @@
+[submodule "VLM_finetune"]
+	path = VLM_finetune
+	url = https://github.com/BeyondPerception/VLM_finetune
