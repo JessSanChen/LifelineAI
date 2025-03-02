@@ -15,6 +15,7 @@ app = Flask(__name__)
 sock = Sock(app)
 
 framerate = 15
+triage_message_queue = queue.Queue()
 
 
 @sock.route('/frame_update')
@@ -162,7 +163,7 @@ def video_feed(ws):
                 if response is not None:
                     print(f"[Main Thread] Server response: {response}")
                     if response["person"] == True:
-                        triaging_agent()
+                        triaging_agent(triage_message_queue)
                 # Mark the external as ready for next batch
                 external_ready = True
             except queue.Empty:
@@ -181,6 +182,16 @@ def video_feed(ws):
         frames_queue.put(None)
         processing_thread.join(timeout=5)
         print("Camera and external processing thread closed.")
+
+
+@sock.route("/triage")
+def triage_messages(ws):
+    while True:
+        triage_message = triage_message_queue.get()
+        if triage_message is None:
+            break
+
+        ws.send(triage_message)
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+import json
 import os
 
 import anthropic
@@ -7,7 +8,7 @@ import speech_recognition as sr
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
-# Load environment variables from .env
+# Load environment variables
 load_dotenv()
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
@@ -91,9 +92,9 @@ def speech_to_text():
 
 
 # Function to handle waiting for a response, then transitioning if needed
-def get_user_input_or_timeout(timeout=15):
+def get_user_input_or_timeout(timeout=6):
     """Passively waits for user input for 'timeout' seconds. If no input, returns None."""
-    print("\n(Waiting for response... 15 seconds before timeout)")
+    print("\n(Waiting for response... 6 seconds before timeout)")
 
     # TODO: add timeout
 
@@ -101,7 +102,7 @@ def get_user_input_or_timeout(timeout=15):
     # return None  # No input received within timeout
 
 
-def triaging_agent():
+def triaging_agent(message_q):
     """Handles back-and-forth triaging until a clear decision is made."""
     conversation_history = [
         {"role": "system", "content": SYSTEM_PROMPT},
@@ -121,6 +122,7 @@ def triaging_agent():
         # Print Claude's response
         print(f"\nClaude: {response.response_text}")
         text_to_speech(response.response_text)
+        message_q.put(response.response_text)
 
         # Add Claude's response to conversation history
         conversation_history.append(
@@ -138,12 +140,15 @@ def triaging_agent():
             print("\nNo response detected. Checking again...")
             conversation_history.append(
                 {"role": "user", "content": "(No response detected)"})
+            message_q.put("(No response detected)")
         else:
             # Add user input to conversation history
             conversation_history.append(
                 {"role": "user", "content": user_input})
+            message_q.put(user_input)
 
 
 # Run Agent
 if __name__ == "__main__":
-    triaging_agent()
+    # triaging_agent()
+    pass
