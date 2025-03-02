@@ -15,7 +15,7 @@ from triage import triaging_agent
 app = Flask(__name__)
 sock = Sock(app)
 
-debug = False
+DEBUG = False
 
 framerate = 2
 triage_message_queue = queue.Queue()
@@ -192,7 +192,7 @@ def video_feed(ws):
                 # You can do something with the response here if needed
                 if response is not None:
                     print(f"[Main Thread] Server response: {response}")
-                    if response["fall"] == True or debug:
+                    if response["fall"] == True or DEBUG:
                         triaging_agent(triage_message_queue)
 
                     # Adaptively adjust framerate and rate of inference based on if someone is in the frame.
@@ -226,6 +226,5 @@ def video_feed(ws):
 
 
 if __name__ == "__main__":
-    global debug
-    debug = "--debug" in sys.argv
+    DEBUG = "--debug" in sys.argv
     app.run(host="0.0.0.0", port=5001, debug=True)
