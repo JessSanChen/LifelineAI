@@ -43,6 +43,9 @@ def call_claude(conversation_history):
             {"role": "user", "content": "A possible fall has been detected. Are you okay?"})
 
     try:
+        formatted_history = json.dumps(conversation_history, indent=2)
+        print(formatted_history)
+
         response = client.chat.completions.create(
             model="claude-3-5-sonnet-20241022",
             max_tokens=300,
@@ -144,7 +147,7 @@ def triaging_agent(message_q):
         else:
             # Add user input to conversation history
             conversation_history.append(
-                {"role": "user", "content": user_input})
+                {"role": "user", "content": user_input["text"]})
             message_q.put(user_input)
 
 
