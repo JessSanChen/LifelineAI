@@ -226,6 +226,13 @@ def video_feed(ws):
         print("Camera and external processing thread closed.")
 
 
+@app.route('/debug', methods=['GET'])
+def debug():
+    global DEBUG
+    DEBUG = True
+    return {}
+
+
 if __name__ == "__main__":
     DEBUG = "--debug" in sys.argv
     app.run(host="0.0.0.0", port=5001, debug=True)

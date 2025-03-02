@@ -9,6 +9,7 @@ import AppTheme from '../../theme/AppTheme';
 import Hero from '../../components/Hero';
 import AppAppBar from '../../components/AppAppBar';
 import Dashboard from '../../components/Dashboard';
+import DebugKeyListener from "../../components/DebugKeyListener";
 
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
@@ -19,6 +20,7 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <AppAppBar />
       <Hero />
       <div>
+        <DebugKeyListener />
         <Dashboard />
         {/* <Divider /> */}
       </div>
