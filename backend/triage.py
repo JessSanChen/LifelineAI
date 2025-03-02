@@ -1,13 +1,11 @@
-import anthropic
 import os
-import sys
-import time
-import select
+
+import anthropic
+import instructor
+import pyttsx3
+import speech_recognition as sr
 from dotenv import load_dotenv
 from pydantic import BaseModel
-import instructor
-import requests
-from main import text_to_speech
 
 # Load environment variables from .env
 load_dotenv()
@@ -17,16 +15,14 @@ if not ANTHROPIC_API_KEY:
     raise ValueError("Missing Anthropic API key! Please set it in .env file.")
 
 # Initialize Anthropic Client with Instructor
-client = instructor.from_anthropic(anthropic.Anthropic(api_key=ANTHROPIC_API_KEY))
+client = instructor.from_anthropic(
+    anthropic.Anthropic(api_key=ANTHROPIC_API_KEY))
 
 # Read the system prompt from file
 with open("prime_triage_prompt.txt", "r", encoding="utf8") as file:
     SYSTEM_PROMPT = file.read()
 
-# Flask API base URL
-FLASK_API_BASE_URL = "http://localhost:5001"
 
-# Define Structured Response Model
 class TriageResponse(BaseModel):
     reasoning: str
     decision_speed: int
@@ -35,14 +31,15 @@ class TriageResponse(BaseModel):
     false_positives_negatives: int
     total_reward: int
     response_text: str
-    exit_conversation: bool  # 🚀 AI now determines whether to exit
+    exit_conversation: bool
 
-# Function to call Claude API with structured response
+
 def call_claude(conversation_history):
     """Send conversation history to Claude and get a structured response."""
     if len(conversation_history) < 2:
         print("\nDEBUG - Not enough messages, adding initial user message.\n")
-        conversation_history.append({"role": "user", "content": "A possible fall has been detected. Are you okay?"})
+        conversation_history.append(
+            {"role": "user", "content": "A possible fall has been detected. Are you okay?"})
 
     try:
         response = client.chat.completions.create(
@@ -68,34 +65,47 @@ def call_claude(conversation_history):
             response_text="I'm having trouble processing right now.",
             exit_conversation=False
         )
-    
+
+
+def text_to_speech(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
 
 def speech_to_text():
-    """Opens the microphone and listens for speech."""
-    try:
-        resp = requests.get(f"{FLASK_API_BASE_URL}/speech_to_text")
-        ret = resp.json().get("text")
-        return ret
-    except requests.exceptions.RequestException as e:
-        print(f"Error in speech-to-text: {e}")
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        recognizer.adjust_for_ambient_noise(source)
+        try:
+            audio = recognizer.listen(source, timeout=5)
+            text = recognizer.recognize_google(audio)
+            print(text)
+            return {"text": text}
+        except sr.UnknownValueError:
+            return {"text": "Could not understand the audio."}
+        except sr.RequestError:
+            return {"text": "Error: Check your internet connection."}
+        except sr.WaitTimeoutError:
+            return {"text": "Listening timed out."}
 
 
 # Function to handle waiting for a response, then transitioning if needed
 def get_user_input_or_timeout(timeout=15):
     """Passively waits for user input for 'timeout' seconds. If no input, returns None."""
     print("\n(Waiting for response... 15 seconds before timeout)")
-    
+
     # TODO: add timeout
 
     return speech_to_text()  # Read input if available
     # return None  # No input received within timeout
 
-# Main Triage Loop
+
 def triaging_agent():
     """Handles back-and-forth triaging until a clear decision is made."""
     conversation_history = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": "A possible fall has been detected. Are you okay?"}  
+        {"role": "user", "content": "A possible fall has been detected. Are you okay?"}
     ]
 
     print("\nFall detected. Initiating triage...\n")
@@ -106,14 +116,15 @@ def triaging_agent():
 
         # Print debug information
         print(f"\nDEBUG - Reasoning: {response.reasoning}")
-        print(f"DEBUG - Rewards: Decision Speed: {response.decision_speed}, Information Gain: {response.information_gain}, Correctness: {response.correctness}, False Positives/Negatives: {response.false_positives_negatives}, Total Reward: {response.total_reward}")
+        print(f"DEBUG - Rewards: Decision Spservereed: {response.decision_speed}, Information Gain: {response.information_gain}, Correctness: {response.correctness}, False Positives/Negatives: {response.false_positives_negatives}, Total Reward: {response.total_reward}")
 
         # Print Claude's response
         print(f"\nClaude: {response.response_text}")
         text_to_speech(response.response_text)
 
         # Add Claude's response to conversation history
-        conversation_history.append({"role": "assistant", "content": response.response_text})
+        conversation_history.append(
+            {"role": "assistant", "content": response.response_text})
 
         # **Exit automatically if the AI determines it should**
         if response.exit_conversation:
@@ -125,10 +136,13 @@ def triaging_agent():
 
         if user_input is None:
             print("\nNo response detected. Checking again...")
-            conversation_history.append({"role": "user", "content": "(No response detected)"})
+            conversation_history.append(
+                {"role": "user", "content": "(No response detected)"})
         else:
             # Add user input to conversation history
-            conversation_history.append({"role": "user", "content": user_input})
+            conversation_history.append(
+                {"role": "user", "content": user_input})
+
 
 # Run Agent
 if __name__ == "__main__":
