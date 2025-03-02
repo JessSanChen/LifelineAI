@@ -66,16 +66,17 @@ const UserChatMessages = styled(Box)(({ theme }) => ({
 export default function Dashboard() {
   const [aiMessages, setAiMessages] = useState<string[]>([]);
   const [userMessages, setUserMessages] = useState<string[]>([]);
+  const [fallDetectedMessage, setFallDetectedMessage] = useState<string>("");
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:5002/triage");
+    const socket = new WebSocket("ws://localhost:5001/triage");
 
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.speaker === "ai") {
-        setAiMessages((prev) => [...prev, data.message]);
+        setAiMessages((prev) => [...prev, data.text]);
       } else if (data.speaker === "user") {
-        setUserMessages((prev) => [...prev, data.message]);
+        setUserMessages((prev) => [...prev, data.text]);
       }
     };
 
@@ -83,6 +84,18 @@ export default function Dashboard() {
       socket.close();
     };
   }, []);
+
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:5001/fall_detected")
+
+    socket.onmessage = (event) => {
+      setFallDetectedMessage("FALL DETECTED");
+    };
+
+    return () => {
+      socket.close();
+    }
+  })
 
   return (
     <Container id="triage" sx={{ py: { xs: 4, sm: 8 }, height: "100vh" }}>
@@ -103,7 +116,7 @@ export default function Dashboard() {
 
           {/* Text Display Section */}
           <TextCard>
-            <Typography variant="body1">Text Display Area</Typography>
+            <Typography variant="body1">{fallDetectedMessage}</Typography>
           </TextCard>
         </Box>
 
