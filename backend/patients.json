@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "context": "An elderly woman with osteoporosis fell in the kitchen while reaching for a cabinet.",
+        "actually_fell": true,
+        "right_action": "alert_emergency",
+        "severity": "high",
+        "response_clarity": "uncertain"
+    },
+    {
+        "id": 2,
+        "context": "A senior with arthritis slipped on a rug but managed to sit down safely.",
+        "actually_fell": true,
+        "right_action": "do_nothing",
+        "severity": "low",
+        "response_clarity": "clear"
+    },
+    {
+        "id": 3,
+        "context": "A man recovering from hip surgery fell while getting out of bed.",
+        "actually_fell": true,
+        "right_action": "alert_emergency",
+        "severity": "high",
+        "response_clarity": "clear"
+    },
+    {
+        "id": 4,
+        "context": "An elderly woman slipped in the bathroom but stood up immediately.",
+        "actually_fell": true,
+        "right_action": "do_nothing",
+        "severity": "low",
+        "response_clarity": "clear"
+    },
+    {
+        "id": 5,
+        "context": "An older man with Parkinson's disease collapsed after feeling dizzy.",
+        "actually_fell": true,
+        "right_action": "alert_emergency",
+        "severity": "moderate",
+        "response_clarity": "uncertain"
+    },
+    {
+        "id": 6,
+        "context": "A senior tripped on a doorstep but claims they are fine.",
+        "actually_fell": true,
+        "right_action": "do_nothing",
+        "severity": "low",
+        "response_clarity": "clear"
+    },
+    {
+        "id": 7,
+        "context": "An elderly woman with a history of fainting lost consciousness for a few seconds.",
+        "actually_fell": true,
+        "right_action": "alert_emergency",
+        "severity": "high",
+        "response_clarity": "uncertain"
+    },
+    {
+        "id": 8,
+        "context": "A person sat down quickly, triggering a false fall detection.",
+        "actually_fell": false,
+        "right_action": "do_nothing",
+        "severity": "none",
+        "response_clarity": "clear"
+    }
+]
